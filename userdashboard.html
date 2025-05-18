@@ -15,10 +15,9 @@
       <span class="logo-text">User Dashboard</span>
     </div>
     <nav>
-      <a href="userdashboard.html" class="active">Dashboard</a>
+      <a href="userdashboard.html" class="active">Proile</a>
       <a href="#">Preferences</a>
-      <a href="profile-card">Profile</a>
-      <a href="#">Inbox</a>
+      <a href="#" id="inboxToggleBtn">Inbox</a>
     </nav>
   </aside>
 
@@ -29,9 +28,6 @@
     <header class="header">
       <h2>Welcome back, Julia!</h2>
       <div class="nav-buttons">
-        <button aria-label="Notifications">
-          <img src="IMAGES/notification.png" alt="Notifications" />
-        </button>
         <a href="carlisting.html" class="book-now-btn">Book</a>
       </div>
     </header>
@@ -60,13 +56,62 @@
       <div class="card-government-card">
         <p class="label">Government & Contact Details</p>
         <div class="goverment-details"></div>
-        <p><strong>Government ID Type:</strong> <span id="profileGovIdType">N/A</span></p>
-        <p><strong>Government ID Number:</strong> <span id="profileGovIdNumber">N/A</span></p>
-        <p><strong>Address:</strong> <span id="profileAddress">N/A</span></p>
-        <p><strong>Driver License ID:</strong> <span id="profileDriverLicense">N/A</span></p>
+        <p><strong>Government ID Type:</strong></p>
+        <p><strong>Government ID Number:</strong></span></p>
+        <p><strong>Address:</strong></p>
+        <p><strong>Contact Number:</strong></p>
+        <p><strong>Driver License ID:</strong></p>
         </div>
         
+        <div id="preferencesModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>User Preferences</h3>
+      <span class="close-modal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="preference-option">
+        <span>Dark Mode</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="preference-option">
+        <span>Font Size</span>
+        <select id="fontSizeSelector">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="savePreferences" class="btn">Save Preferences</button>
+    </div>
+  </div>
+</div>
 
+<div id="inboxModal" class="modal">
+  <div class="modal-content inbox-content">
+    <div class="modal-header">
+      <h3>Inbox</h3>
+      <span class="close-inbox">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="tabs">
+        <button class="tab-button active" data-tab="renters">Car Renters</button>
+        <button class="tab-button" data-tab="support">Customer Support</button>
+      </div>
+      <div class="tab-content active" id="renters">
+        <p>No messages yet from car owners.</p>
+      </div>
+      <div class="tab-content" id="support">
+        <p>No messages yet from customer support.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
       
       <div class="card booking-status">
@@ -143,194 +188,291 @@
   </main>
 
 <script>
-  
   document.addEventListener("DOMContentLoaded", () => {
-    const editBtn = document.querySelector('.edit-btn');
-    const profileName = document.querySelector('.profile-details strong');
-    const profileUsername = document.querySelector('.profile-details p');
-    const profileContact = document.querySelector('.profile-contact .text');
+  // Get user data from localStorage or use empty object if not found
+  const userData = JSON.parse(localStorage.getItem('userProfile')) || {};
+  
+  // Update the various sections of the page
+  updateWelcomeMessage(userData);
+  updateProfileCard(userData);
+  updateGovernmentCard(userData);
+  setupEditProfileButton(userData);
+});
 
+function updateWelcomeMessage(userData) {
+  const welcomeHeader = document.querySelector('.header h2');
+  if (welcomeHeader) {
+    const firstName = userData.firstName || 'Julia';
+    welcomeHeader.textContent = `Welcome back, ${firstName}!`;
+  }
+}
+
+function updateProfileCard(userData) {
+  const profileName = document.querySelector('.profile-details strong');
+  const profileUsername = document.querySelector('.profile-details p');
+  const profileContact = document.querySelector('.profile-contact .text');
+  
+  if (profileName && profileUsername && profileContact) {
+    const fullName = `${userData.firstName || 'Julia'} ${userData.middleName ? userData.middleName + ' ' : ''}${userData.lastName || 'Banks'} ${userData.suffix || ''}`.trim();
     
-    const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
-
-    const fullName = userProfile.fullName || `${userProfile.firstName || ''} ${userProfile.middleName ? userProfile.middleName + ' ' : ''}${userProfile.lastName || ''} ${userProfile.suffix || ''}`.trim();
-    const username = userProfile.username || `@${(userProfile.firstName || 'user').charAt(0).toLowerCase()}${(userProfile.lastName || 'name').toLowerCase()}`;
-    const contact = userProfile.contact || `${userProfile.email || 'example@email.com'}<br/>+63 967 445 4894`;
-
+    const firstName = userData.firstName || 'julia';
+    const lastInitial = userData.lastName ? userData.lastName.charAt(0) : 'b';
+    const username = `@${firstName.toLowerCase()}.${lastInitial.toLowerCase()}`;
+    
+    const email = userData.email || 'julia@example.com';
+    const contactNumber = userData.contactNumber || '+63 967 445 4894';
+    
     profileName.textContent = fullName;
     profileUsername.textContent = username;
-    profileContact.innerHTML = contact;
+    profileContact.innerHTML = `
+      <div class="email">${email}</div>
+      <div class="contact-number">${contactNumber}</div>
+    `;
+  }
+}
 
-   
-    editBtn.addEventListener('click', () => {
-      if (editBtn.textContent === 'Edit Profile') {
-       
-        profileName.innerHTML = `<input type="text" id="editFullName" value="${fullName}" />`;
-        profileUsername.innerHTML = `<input type="text" id="editUsername" value="${username}" />`;
-        profileContact.innerHTML = `<input type="text" id="editContact" value="${contact.replace(/<br\/>/g, ' ')}" />`;
-        editBtn.textContent = 'Save Profile';
-      } else {
+function updateGovernmentCard(userData) {
+  const govDetailsCard = document.querySelector('.card-government-card');
+  if (!govDetailsCard) return;
+  
+  const paragraphs = govDetailsCard.querySelectorAll('p');
+  if (paragraphs.length >= 6) {
+    // Use the contact number directly from userData
+    const contactNumber = userData.contactNumber || '+63 967 445 4894';
+    
+    paragraphs[1].innerHTML = `<strong>Government ID Type:</strong> ${userData.govIdType || 'Not provided'}`;
+    paragraphs[2].innerHTML = `<strong>Government ID Number:</strong> ${userData.govIdNumber || 'Not provided'}`;
+    paragraphs[3].innerHTML = `<strong>Contact Number:</strong> ${contactNumber}`;
+    paragraphs[4].innerHTML = `<strong>Address:</strong> ${userData.address || 'Not provided'}`;
+    paragraphs[5].innerHTML = `<strong>Driver License ID:</strong> ${userData.driverLicense || 'Not provided'}`;
+  }
+}
+
+function setupEditProfileButton(userData) {
+  const editBtn = document.querySelector('.edit-btn');
+  if (!editBtn) return;
+  
+  editBtn.addEventListener('click', () => {
+    if (editBtn.textContent === 'Edit Profile') {
+      // Switch to edit mode
+      const profileName = document.querySelector('.profile-details strong');
+      const profileUsername = document.querySelector('.profile-details p');
+      const profileContact = document.querySelector('.profile-contact .text');
+      
+      const fullName = profileName.textContent;
+      const username = profileUsername.textContent;
+      
+      profileName.innerHTML = `<input type="text" id="editFullName" value="${fullName}" />`;
+      profileUsername.innerHTML = `<input type="text" id="editUsername" value="${username}" />`;
+      profileContact.innerHTML = `
+        <input type="email" id="editEmail" value="${userData.email || ''}" placeholder="Email" />
+        <input type="text" id="editContactNumber" value="${userData.contactNumber || ''}" placeholder="Contact Number" />
+      `;
+      
+      editBtn.textContent = 'Save Profile';
+    } else {
+      // Save mode
+      const profileName = document.querySelector('.profile-details strong');
+      const profileUsername = document.querySelector('.profile-details p');
+      const profileContact = document.querySelector('.profile-contact .text');
+      
+      const updatedFullName = document.getElementById('editFullName').value;
+      const updatedUsername = document.getElementById('editUsername').value;
+      const updatedEmail = document.getElementById('editEmail').value;
+      const updatedContactNumber = document.getElementById('editContactNumber').value;
+      
+      // Update the profile card with new data
+      profileName.textContent = updatedFullName;
+      profileUsername.textContent = updatedUsername;
+      profileContact.innerHTML = `
+        <div class="email">${updatedEmail}</div>
+        <div class="contact-number">${updatedContactNumber}</div>
+      `;
+      
+      // Get existing user data
+      const updatedUserData = JSON.parse(localStorage.getItem('userProfile')) || {};
+      
+      // Parse the full name
+      const nameParts = updatedFullName.trim().split(' ');
+      if (nameParts.length >= 2) {
+        updatedUserData.firstName = nameParts[0];
+        updatedUserData.lastName = nameParts[nameParts.length - 1];
         
-        const updatedFullName = document.getElementById('editFullName').value;
-        const updatedUsername = document.getElementById('editUsername').value;
-        const updatedContact = document.getElementById('editContact').value;
+        // Handle middle name if present
+        if (nameParts.length > 2) {
+          updatedUserData.middleName = nameParts.slice(1, -1).join(' ');
+        }
+      }
+      
+      // Update contact info with the separate input fields
+      updatedUserData.email = updatedEmail;
+      updatedUserData.contactNumber = updatedContactNumber;
+      
+      // Save updated data
+      localStorage.setItem('userProfile', JSON.stringify(updatedUserData));
+      
+      // Switch back to view mode
+      editBtn.textContent = 'Edit Profile';
+      
+      // Update all sections with new data
+      updateWelcomeMessage(updatedUserData);
+      updateGovernmentCard(updatedUserData);
+    }
+  });
+}
+</script>
 
-        profileName.textContent = updatedFullName;
-        profileUsername.textContent = updatedUsername;
-        profileContact.innerHTML = updatedContact.replace(/\n/g, '<br/>');
+<script>
+  // Add this to your existing script.js file or create a new preferences.js file
+document.addEventListener("DOMContentLoaded", () => {
+  // Get the modal and related elements
+  const preferencesModal = document.getElementById("preferencesModal");
+  const preferencesLink = document.querySelector('a[href="#"]'); // The preferences link
+  const closeModal = document.querySelector(".close-modal");
+  const darkModeToggle = document.getElementById("darkModeToggle");
+  const fontSizeSelector = document.getElementById("fontSizeSelector");
+  const savePreferencesBtn = document.getElementById("savePreferences");
+  
+  // Load saved preferences from localStorage
+  loadPreferences();
+  
+  // Open modal when clicking Preferences link
+  preferencesLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    preferencesModal.style.display = "block";
+  });
+  
+  // Close modal when clicking the close button
+  closeModal.addEventListener("click", () => {
+    preferencesModal.style.display = "none";
+  });
+  
+  // Close modal when clicking outside the modal content
+  window.addEventListener("click", (event) => {
+    if (event.target === preferencesModal) {
+      preferencesModal.style.display = "none";
+    }
+  });
+  
+  // Save preferences when clicking the Save button
+  savePreferencesBtn.addEventListener("click", () => {
+    savePreferences();
+    preferencesModal.style.display = "none";
+  });
+  
+  // Toggle dark mode immediately when checkbox is clicked
+  darkModeToggle.addEventListener("change", () => {
+    toggleDarkMode(darkModeToggle.checked);
+  });
+  
+  // Toggle font size immediately when selection changes
+  fontSizeSelector.addEventListener("change", () => {
+    changeFontSize(fontSizeSelector.value);
+  });
+  
+  // Function to load preferences from localStorage
+  function loadPreferences() {
+    const preferences = JSON.parse(localStorage.getItem("userPreferences")) || {};
+    
+    // Set dark mode
+    if (preferences.darkMode !== undefined) {
+      darkModeToggle.checked = preferences.darkMode;
+      toggleDarkMode(preferences.darkMode);
+    }
+    
+    // Set font size
+    if (preferences.fontSize) {
+      fontSizeSelector.value = preferences.fontSize;
+      changeFontSize(preferences.fontSize);
+    }
+  }
+  
+  // Function to save preferences to localStorage
+  function savePreferences() {
+    const preferences = {
+      darkMode: darkModeToggle.checked,
+      fontSize: fontSizeSelector.value
+    };
+    
+    localStorage.setItem("userPreferences", JSON.stringify(preferences));
+    
+    // Apply preferences
+    toggleDarkMode(preferences.darkMode);
+    changeFontSize(preferences.fontSize);
+  }
+  
+  // Function to toggle dark mode
+  function toggleDarkMode(isDarkMode) {
+    if (isDarkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }
+  
+  // Function to change font size
+  function changeFontSize(size) {
+    const htmlElement = document.documentElement;
+    
+    switch(size) {
+      case "small":
+        htmlElement.style.fontSize = "14px";
+        break;
+      case "medium":
+        htmlElement.style.fontSize = "16px";
+        break;
+      case "large":
+        htmlElement.style.fontSize = "18px";
+        break;
+      default:
+        htmlElement.style.fontSize = "16px";
+    }
+  }
+});
+</script>
 
-        const updatedProfile = {
-          ...userProfile,
-          fullName: updatedFullName,
-          username: updatedUsername,
-          contact: updatedContact
-        };
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const inboxToggleBtn = document.getElementById('inboxToggleBtn');
+  const inboxModal = document.getElementById('inboxModal');
+  const closeInboxBtn = document.querySelector('.close-inbox');
 
-        localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
-        editBtn.textContent = 'Edit Profile';
+  if (inboxToggleBtn && inboxModal && closeInboxBtn) {
+    inboxToggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      inboxModal.style.display = 'block';
+    });
+
+    closeInboxBtn.addEventListener('click', () => {
+      inboxModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === inboxModal) {
+        inboxModal.style.display = 'none';
       }
     });
-  });
-</script>
-
-<script>
-  
-  function goToPage3() {
-    const govIdType = document.getElementById('govIdType').value;
-    const govIdNumber = document.getElementById('govIdNumber').value;
-    const address = document.getElementById('address').value;
-    const driverLicense = document.getElementById('driverLicense').value;
-
-
-    localStorage.setItem('govIdType', govIdType);
-    localStorage.setItem('govIdNumber', govIdNumber);
-    localStorage.setItem('address', address);
-    localStorage.setItem('driverLicense', driverLicense);
-
-  
-    window.location.href = 'userdashboard.html';
   }
-</script>
 
-<script>
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const govIdType = localStorage.getItem('govIdType') || "N/A";
-    const govIdNumber = localStorage.getItem('govIdNumber') || "N/A";
-    const address = localStorage.getItem('address') || "N/A";
-    const driverLicense = localStorage.getItem('driverLicense') || "N/A";
+  // ✅ TAB SWITCHING LOGIC
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
 
-    if (document.getElementById('profileGovIdType')) {
-      document.getElementById('profileGovIdType').textContent = govIdType;
-      document.getElementById('profileGovIdNumber').textContent = govIdNumber;
-      document.getElementById('profileAddress').textContent = address;
-      document.getElementById('profileDriverLicense').textContent = driverLicense;
-    }
-  });
-</script>
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove 'active' from all buttons and contents
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
 
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const govIdType = localStorage.getItem('govIdType') || "N/A";
-    const govIdNumber = localStorage.getItem('govIdNumber') || "N/A";
-    const address = localStorage.getItem('address') || "N/A";
-    const driverLicense = localStorage.getItem('driverLicense') || "N/A";
-
-    document.getElementById('profileGovIdType').textContent = govIdType;
-    document.getElementById('profileGovIdNumber').textContent = govIdNumber;
-    document.getElementById('profileAddress').textContent = address;
-    document.getElementById('profileDriverLicense').textContent = driverLicense;
-  });
-</script>
-
-
-<div id="paymentModal" class="modal hidden">
-  <div class="modal-content">
-    <h3 id="modalTitle">Add Number</h3>
-    <input type="text" id="paymentNumberInput" placeholder="Enter number" />
-    <button id="modalAddBtn">Add</button>
-    <button id="modalCloseBtn" class="close-btn">&times;</button>
-  </div>
-</div>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById('paymentModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const paymentInput = document.getElementById('paymentNumberInput');
-  const modalAddBtn = document.getElementById('modalAddBtn');
-  const modalCloseBtn = document.getElementById('modalCloseBtn');
-
-
-  let currentPaymentMethodDiv = null;
-  let currentPaymentMethodName = '';
-
-
-  document.querySelectorAll('.billing-methods .edit-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-
-    
-      const methodsDiv = e.target.closest('.methods');
-      currentPaymentMethodDiv = methodsDiv;
-      currentPaymentMethodName = methodsDiv.querySelector('span').textContent.trim();
-
-     
-      modalTitle.textContent = `${currentPaymentMethodName} no:`;
-
-    
-      paymentInput.value = '';
-
-      
-      modal.classList.remove('hidden');
-
-      
-      paymentInput.focus();
+      // Add 'active' to the clicked button and its target content
+      button.classList.add('active');
+      const tabId = button.getAttribute('data-tab');
+      document.getElementById(tabId).classList.add('active');
     });
-  });
-
-  
-  modalAddBtn.addEventListener('click', () => {
-    const enteredNumber = paymentInput.value.trim();
-    if (enteredNumber === '') {
-      alert('Please enter a valid number.');
-      paymentInput.focus();
-      return;
-    }
-
-  
-    let numbersContainer = currentPaymentMethodDiv.querySelector('.numbers-container');
-    if (!numbersContainer) {
-      numbersContainer = document.createElement('div');
-      numbersContainer.classList.add('numbers-container');
-      numbersContainer.style.marginTop = '8px';
-      numbersContainer.style.fontSize = '0.9rem';
-      currentPaymentMethodDiv.appendChild(numbersContainer);
-    }
-
-   
-    const numberLine = document.createElement('p');
-    numberLine.textContent = enteredNumber;
-    numbersContainer.appendChild(numberLine);
-
-    
-    modal.classList.add('hidden');
-  });
-
- 
-  modalCloseBtn.addEventListener('click', () => {
-    modal.classList.add('hidden');
-  });
-
-  
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.classList.add('hidden');
-    }
   });
 });
 </script>
+
+
 </body>
 </html>
