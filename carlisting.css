@@ -1,0 +1,304 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: black;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5%;
+  background: linear-gradient(135deg, #000000, #373434);
+  color: #f0e193;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.nav-icon:hover {
+  transform: scale(1.2);
+}
+
+.navbar a {
+  color: #f0e193;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.listing-hero {
+  position: relative;
+  height: 40vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listing-hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.listing-hero-overlay {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #f0e193;
+  padding: 20px;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+  background-color: rgba(139, 139, 139, 0.08);
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.listing-hero-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.listing-hero-overlay p {
+  font-size: 1.2rem;
+}
+
+.filter-bar {
+  background: linear-gradient(135deg, black, #670d0d);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.filter-group select {
+  margin-top: 5px;
+  padding: 8px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.s-btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #4d4848, #373434);
+  color: white; 
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.s-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #4d4848, #373434);
+}
+
+.car-listings {
+  display: flex;
+  background: linear-gradient(135deg, #670d0d, black);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px 20px;
+}
+
+.car-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #111;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 280px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.car-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.car-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.car-card:hover {
+  transform: translateY(-5px);
+}
+
+.car-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.car-info h3 {
+  margin: 0 0 10px;
+}
+
+.car-info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.price {
+  color: #f0e193;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.main-footer {
+  background-color: black;
+  color: #f0e193;
+  padding: 10px 10px;
+  text-align: center;
+}
+
+.price-slider-input { 
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #333;
+  border-radius: 5px;
+  outline: none;
+}
+
+.price-slider-input::-webkit-slider-runnable-track {
+  background: linear-gradient(135deg, #670d0d, #141414);
+  height: 6px;
+  border-radius: 5px;
+  outline: #4d4848;
+}
+
+.price-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #111;
+  border: 2px solid #f0e193;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -7px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.price-slider-input::-webkit-slider-thumb:hover {
+  background: #333;
+  transform: scale(1.1);
+}
+
+.price-slider-input::-moz-range-track {
+  background: linear-gradient(135deg, #670d0d, #141414);
+  height: 6px;
+  border-radius: 5px;
+}
+
+.price-slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #111;
+  border: 2px solid #f0e193;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.price-slider-input::-moz-range-thumb:hover {
+  background: #333;
+  transform: scale(1.1);
+}
+
+.book-btn {
+  position: relative;
+  align-items: baseline;
+  padding: 0.3rem .5rem !important;
+  font-size: 0.60rem !important;
+  border-radius: 5px !important;
+  background: linear-gradient(135deg, #670d0d 0%, #141414 100%) !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  width: auto !important;
+  color: #f0e193;
+}
+
+.book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 215, 0, 0.3) !important;
+  background: linear-gradient(135deg, #670d0d 0%, #141414 100%) !important;
+}
+
+
+.book-btn:active {
+  background-color: #00408d;
+}
