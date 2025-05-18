@@ -1,0 +1,354 @@
+/* carownerdashboard.css - Transformed to match design */
+:root {
+  --dark-bg: #0c0000;
+  --primary: #5c0e14;
+  --accent: #fdd700;
+  --light-accent: #f0e193;
+  --status-green: #2ecc71;
+  --status-red: #e74c3c;
+  --border-radius: 4px;
+  --transition: all 0.2s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  height: 100vh;
+  background-color: var(--dark-bg);
+  color: var(--accent);
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 120px;
+  background: var(--primary);
+  color: var(--accent);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  text-align: center;
+  padding: 15px 10px;
+  line-height: 1.2;
+  background-color: var(--dark-bg);
+  border-bottom: 1px solid rgba(253, 215, 0, 0.1);
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu a {
+  color: var(--accent);
+  text-decoration: none;
+  display: block;
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(253, 215, 0, 0.1);
+  transition: var(--transition);
+}
+
+.menu a:hover, .menu a.active {
+  background: rgba(253, 215, 0, 0.1);
+}
+
+.menu a.active {
+  border-left: 3px solid var(--accent);
+}
+
+.report-header {
+  font-size: 14px;
+  text-align: center;
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(253, 215, 0, 0.1);
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+}
+
+.get-help {
+  margin-top: auto;
+  background: var(--primary);
+  padding: 15px 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.get-help button {
+  background: var(--accent);
+  color: var(--dark-bg);
+  border: none;
+  padding: 8px 10px;
+  margin-top: 10px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  width: 90%;
+  font-size: 12px;
+}
+
+/* Main Content Area */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary);
+  overflow-y: auto;
+  padding: 15px;
+}
+
+/* Banner */
+.banner {
+  background: var(--dark-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.banner h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.banner p {
+  font-size: 14px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.banner button {
+  background: var(--accent);
+  color: var(--dark-bg);
+  border: none;
+  padding: 8px 15px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Car Listings */
+.car-listings {
+  flex: 1;
+}
+
+.listings-header {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.car-listings table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: var(--accent);
+}
+
+.car-listings th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid rgba(253, 215, 0, 0.2);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.car-listings td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(253, 215, 0, 0.1);
+}
+
+.car-listings tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.car-listings .status {
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  min-width: 70px;
+}
+
+.status.ongoing {
+  background: var(--accent);
+  color: var(--dark-bg);
+}
+
+.status.finished {
+  background: var(--status-green);
+}
+
+.status.canceled {
+  background: var(--status-red);
+}
+
+/* Stats Cards */
+.stats-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  flex: 1;
+  background: var(--dark-bg);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  text-align: left;
+}
+
+.stat-card h3 {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.stat-card .amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Profile Card */
+.profile-card {
+  background: var(--primary);
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid var(--accent);
+}
+
+.profile-card h4 {
+  margin: 5px 0;
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 16px;
+}
+
+.profile-card p {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.profile-card button {
+  background: var(--accent);
+  color: var(--dark-bg);
+  border: none;
+  padding: 6px 12px;
+  width: 100%;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+  
+  .logo {
+    font-size: 12px;
+    padding: 10px 5px;
+  }
+  
+  .menu a {
+    padding: 10px 5px;
+    font-size: 12px;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+  }
+  
+  .profile-card {
+    width: 150px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .logo {
+    width: 120px;
+  }
+  
+  .menu {
+    flex-direction: row;
+  }
+  
+  .menu a {
+    border-bottom: none;
+    border-right: 1px solid rgba(253, 215, 0, 0.1);
+    padding: 15px 20px;
+  }
+  
+  .report-header {
+    display: none;
+  }
+  
+  .get-help {
+    display: none;
+  }
+  
+  .profile-card {
+    position: static;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .main {
+    padding: 10px;
+  }
+}
