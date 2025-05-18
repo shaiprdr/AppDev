@@ -4,9 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>User Dashboard</title>
-  <link rel="stylesheet" href="carownerdashboard.css" />
+  <link rel="stylesheet" href="CSS/carownerdashboard.css" />
 </head>
 <body>
+  <div id="carUploadModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Upload a Car</h2>
+      <form id="carUploadForm" enctype="multipart/form-data">
+        <label for="carName">Car Name:</label>
+        <input type="text" id="carName" name="carName" required>
+
+        <label for="carType">Type:</label>
+        <select id="carType" name="carType" required>
+          <option value="" disabled selected>Select type</option>
+          <option value="Economy">Economy</option>
+          <option value="Luxury">Luxury</option>
+          <option value="SUVs">SUVs</option>
+          <option value="Electric Vehicles">Electric Vehicles</option>
+        </select>
+
+        <label for="seats">Seats:</label>
+        <input type="number" id="seats" name="seats" min="2" max="12" required>
+
+        <label for="fuelType">Fuel Type:</label>
+        <select id="fuelType" name="fuelType" required>
+          <option value="" disabled selected>Select fuel type</option>
+          <option value="Petrol">Petrol</option>
+          <option value="Gasoline">Gasoline</option>
+          <option value="Xtra Advance">Xtra Advance</option>
+          <option value="Battery (Electric)">Battery (Electric)</option>
+        </select>
+
+        <label for="pricePerDay">Price Per Day (₱):</label>
+        <input type="number" id="pricePerDay" name="pricePerDay" required>
+
+        <label for="location">Location:</label>
+        <select id="location" name="location" required>
+          <option value="" disabled selected>Select location</option>
+          <option value="Metro Manila">Metro Manila</option>
+          <option value="South Luzon">South Luzon</option>
+          <option value="North Luzon">North Luzon</option>
+          <option value="Visayas">Visayas</option>
+          <option value="Mindanao">Mindanao</option>
+          <option value="CALABARZON">CALABARZON</option>
+        </select>
+
+        <form id="car-form" novalidate>
+          <div class="form-group">
+            <label>Availability:</label>
+            <div class="checkbox-row">
+              <label><input type="checkbox" name="carAvailability" value="1 week">1 week</label>
+              <label><input type="checkbox" name="carAvailability" value="2 weeks">2 weeks</label>
+              <label><input type="checkbox" name="carAvailability" value="3 weeks">3 weeks</label>
+              <label><input type="checkbox" name="carAvailability" value="1 month">1 month</label>
+            </div>
+            <p id="availability-error" style="color: red; margin-top: 5px;"></p>
+          </div>
+
+          <label for="carImage">Upload Car Image:</label>
+          <input type="file" id="carImage" name="carImage" accept="image/*">
+          <p id="image-error" style="color: red; margin-top: 5px;"></p>
+
+          <button type="submit">Upload Car</button>
+        </form>
+    </div>
+  </div>
+
 
 
   <aside class="sidebar">
@@ -28,7 +92,7 @@
     <header class="header">
       <h2>Welcome back, Julia!</h2>
       <div class="nav-buttons">
-        <button class="book-now-btn">Upload Car</a>
+        <button class="book-now-btn" id="uploadCarBtn">Upload Car</button>
       </div>
     </header>
 
@@ -151,23 +215,208 @@
       </div>
 
     
-<div class="card billing-methods">
-  <p class="label">Payout Method</p>
+    <div class="card billing-methods">
+      <p class="label">Payout Method</p>
+      <ul class="payout-method-list">
+      <li class="payout-method">
+        <div class="method-details">
+          <div class="method-info">
+            <img src="IMAGES/credit-card.png" alt="Card" />
+            <span>Card</span>
+          </div>
+          <p class="saved-number" id="card-number"></p>
+        </div>
+        <a href="#" class="edit-link">Add</a>
+      </li>
 
-  <div class="methods" data-method="card">
-    <span><img src="IMAGES/credit-card.png" alt="Card" /> Credit/Debit Card</span>
-    <a href="#" class="edit-link">Add</a>
-    <p class="saved-number" id="card-number"></p>
-  </div>
-</div>
+      <li class="payout-method">
+        <div class="method-details">
+          <div class="method-info">
+            <img src="IMAGES/gcash.png" alt="GCash" />
+            <span>GCash</span>
+          </div>
+          <p class="saved-number" id="gcash-number"></p>
+        </div>
+        <a href="#" class="edit-link">Add</a>
+      </li>
 
-      <div class="card uploaded-vehicles">
-        <p class="label">Uploded  Vehicles</p>
-        <p>-----</p>
+      <li class="payout-method">
+        <div class="method-details">
+          <div class="method-info">
+            <img src="IMAGES/paypal.png" alt="PayPal" />
+            <span>PayPal</span>
+          </div>
+          <p class="saved-number" id="paypal-number"></p>
+        </div>
+        <a href="#" class="edit-link">Add</a>
+      </li>
+
+      <li class="payout-method">
+        <div class="method-details">
+          <div class="method-info">
+            <img src="IMAGES/maya.png" alt="Maya" />
+            <span>Maya</span>
+          </div>
+          <p class="saved-number" id="maya-number"></p>
+        </div>
+        <a href="#" class="edit-link">Add</a>
+      </li>
+    </ul>
+    </div>
+
+
+    <div class="card uploaded-vehicles">
+      <p class="label">Uploded  Vehicles</p>
+      <p>-----</p>
+    </div>
+    </section> 
+
+    <div id="carDetailsModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="closeCarDetails">&times;</span>
+        <h2 id="detailName"></h2>
+        <img id="detailImage" src="" alt="" style="width:300px;">
+        <p><strong>Type:</strong> <span id="detailType"></span></p>
+        <p><strong>Seats:</strong> <span id="detailSeats"></span></p>
+        <p><strong>Fuel Type:</strong> <span id="detailFuel"></span></p>
+        <p><strong>Price per day:</strong> ₱<span id="detailPrice"></span></p>
+        <p><strong>Location:</strong> <span id="detailLocation"></span></p>
+        <p><strong>Availability:</strong> <span id="detailAvailability"></span></p>
       </div>
+    </div>
 
-    </section>
   </main>
+
+<script>
+  document.getElementById("car-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const checkboxes = document.querySelectorAll('input[name="carAvailability"]');
+    const imageInput = document.getElementById("carImage");
+
+    const availabilityError = document.getElementById("availability-error");
+    const imageError = document.getElementById("image-error");
+
+    let isValid = true;
+
+    if (!Array.from(checkboxes).some(cb => cb.checked)) {
+      availabilityError.textContent = "Please select at least one availability option.";
+      isValid = false;
+    } else {
+      availabilityError.textContent = "";
+    }
+
+    if (!imageInput.files || imageInput.files.length === 0) {
+      imageError.textContent = "Please upload a car image.";
+      isValid = false;
+    } else {
+      imageError.textContent = "";
+    }
+    
+    if (isValid) {
+      this.submit();
+    }
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const uploadCarBtn = document.getElementById("uploadCarBtn");
+    const uploadModal = document.getElementById("carUploadModal");
+    const closeModalBtn = document.querySelector(".close");
+    const uploadForm = document.getElementById("carUploadForm");
+    const vehicleContainer = document.querySelector(".uploaded-vehicles");
+
+    uploadCarBtn.addEventListener("click", () => {
+      uploadModal.style.display = "block";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+      uploadModal.style.display = "none";
+    });
+
+    uploadForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const imageInput = document.getElementById("carImage");
+      const file = imageInput.files[0];
+      if (!file) {
+        alert("Please upload a car image.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageDataUrl = e.target.result;
+
+        const newCar = {
+          name: document.getElementById("carName").value,
+          type: document.getElementById("carType").value,
+          seats: document.getElementById("seats").value,
+          fuel: document.getElementById("fuelType").value,
+          price: document.getElementById("pricePerDay").value,
+          location: document.getElementById("location").value,
+          availability: Array.from(document.querySelectorAll('input[name="carAvailability"]:checked')).map(cb => cb.value),
+          image: imageDataUrl
+        };
+
+        let vehicleData = JSON.parse(localStorage.getItem("uploadedVehicles")) || [];
+        vehicleData.push(newCar);
+        localStorage.setItem("uploadedVehicles", JSON.stringify(vehicleData));
+        updateUploadedVehicles(vehicleData);
+        uploadModal.style.display = "none";
+        uploadForm.reset();
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    window.updateUploadedVehicles = function (vehicles) {
+      const container = document.querySelector(".uploaded-vehicles");
+      const carGallery = vehicles.map((car, index) => `
+        <div class="car-image-wrapper">
+          <img src="${car.image}" alt="${car.name}" class="car-thumbnail" data-index="${index}" style="cursor:pointer;"/>
+        </div>
+      `).join("");
+
+      container.innerHTML = `<p class="label">Uploaded Vehicles</p><div class="car-gallery">${carGallery}</div>`;
+
+      document.querySelectorAll(".car-thumbnail").forEach(img => {
+        img.addEventListener("click", (e) => {
+          const idx = e.target.dataset.index;
+          showCarDetails(vehicles[idx]);
+        });
+      });
+    };
+  });
+</script>
+
+<script>
+  function showCarDetails(car) {
+    document.getElementById("detailName").textContent = car.name;
+    document.getElementById("detailImage").src = car.image;
+    document.getElementById("detailType").textContent = car.type;
+    document.getElementById("detailSeats").textContent = car.seats;
+    document.getElementById("detailFuel").textContent = car.fuel;
+    document.getElementById("detailPrice").textContent = car.price;
+    document.getElementById("detailLocation").textContent = car.location;
+    document.getElementById("detailAvailability").textContent = car.availability.join(", ");
+
+    document.getElementById("carDetailsModal").style.display = "block";
+  }
+
+  document.getElementById("closeCarDetails").addEventListener("click", () => {
+    document.getElementById("carDetailsModal").style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    const modal = document.getElementById("carDetailsModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
