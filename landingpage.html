@@ -1,0 +1,1058 @@
+<!--
+  Finals: RREENNTTACAR
+  Team Members:
+  - Hannah Margarette Bulawan
+  - Shairra Marrie Paradero
+  - El Ruth Bethel Reyes
+  - Lhay Ann Zano
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RREENNTTACAR</title>
+  <link rel="stylesheet" href="CSS/landingpage.css" />
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="brand">
+                <img src="IMAGES/logo.png" alt="Logo" class="logo-img" />
+                <span class="logo-text">RREENNTTACAR</span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                  <li><a href="#blog-news" class="nav-link">Blog/News</a></li>
+                  <li><a href="#legal-policies" class="nav-link">Legal & Policies</a></li>
+                  <li><a href="#about-us" class="nav-link">About Us</a></li>
+                  <li><a href="#contact-bar" class="nav-link">Contact Us</a></li>
+                </ul>
+              
+                <div class="sign-button">
+                    <button type="button" id="signInSwitchBtn">Sign In</button>
+                </div>
+
+
+            </nav>          
+        </div>
+    </header>
+
+    <section class="hero">
+      <video autoplay muted loop class="background-video">
+        <source src="IMAGES/19736907-uhd_3840_2160_30fps.mp4" type="video/mp4">
+      </video>
+    
+      <div class="hero-content">
+      
+        <div class="hero-text">
+          <h1>Drive the Experience:<br>Your Journey, Your Car, Your Way!</h1>
+          <div class="store-buttons">
+            <img src="IMAGES/appstore.png" alt="App Store">
+            <img src="IMAGES/playstore.png" alt="Google Play">
+          </div>
+        </div>
+    
+        
+        <div class="signup-overlay">
+          <form class="signup-form" id="signupForm">
+            <h2>Create an account</h2>
+    
+         
+            <div id="page1" class="form-page">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" required oninput="validateForm()" placeholder="Enter First Name">
+    
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required oninput="validateForm()" placeholder="Enter Last Name">
+    
+              <label for="middleName">Middle Name</label>
+              <input type="text" id="middleName" name="middleName" placeholder="Enter Middle Name">
+    
+              <label for="suffix">Suffix</label>
+              <select id="suffix" name="suffix" oninput="validateForm()">
+                <option value="">Select Suffix (optional)</option>
+                <option value="Jr.">Jr.</option>
+                <option value="Sr.">Sr.</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+              </select>
+    
+              <label for="age">Age</label>
+              <input type="number" min="21" id="age" name="age" required oninput="validateForm()" placeholder="Age above 21">
+    
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required oninput="validateForm()" placeholder="Enter Email Address">
+    
+              <button type="button" id="nextButton1" disabled onclick="goToPage2()">Next</button>
+            </div>
+            <p>Already have an account? <a href="#" id="showSignInLink">Log In</a></p>
+    
+            <!-- Page 2 (Updated) -->
+<div id="page2" class="form-page" style="display: none;">
+  <label for="govIdType">Government ID</label>
+  <select id="govIdType" name="govIdType" onchange="toggleGovIdInput(); validateForm()">
+    <option value="">Select Government ID</option>
+    <option value="SSS">SSS</option>
+    <option value="PhilHealth ID">PhilHealth ID</option>
+    <option value="UMID">UMID</option>
+    <option value="Postal ID">Postal ID</option>
+    <option value="National ID">National ID</option>
+    <option value="Voter's ID">Voter's ID</option>
+    <option value="Philippine Passport">Philippine Passport</option>
+  </select>
+
+  <div id="govIdNumberContainer" style="display: none;">
+    <label for="govIdNumber" id="govIdLabel">Enter Government ID Number:</label>
+    <input type="text" id="govIdNumber" name="govIdNumber" oninput="formatGovIdNumber()" />
+  </div>
+
+  <label for="address">Address</label>
+  <input type="text" id="address" name="address" required oninput="validateForm()" placeholder="Enter Address">
+
+  <label for="driverLicense">Driver License ID</label>
+  <input type="text" id="driverLicense" name="driverLicense" required oninput="validateForm()" placeholder="Enter Driver License ID">
+
+
+  <button type="button" id="nextButton2" onclick="goToPage3()">Next</button>
+</div>
+
+
+<div id="page3" class="form-page" style="display: none;">
+  <label for="password">Password</label>
+  <div class="password-wrapper">
+    <input type="password" id="password" name="password" required placeholder="Enter Password" oninput="checkPasswordMatch()">
+    <span class="toggle-password" onclick="togglePasswordVisibility('password', this)">👁️</span>
+  </div>
+
+  <label for="confirmPassword">Confirm Password</label>
+  <div class="password-wrapper">
+    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password" oninput="checkPasswordMatch()">
+    <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', this)">👁️</span>
+  </div>
+
+  <p id="passwordMatchMsg" style="font-size: 0.9rem; margin-top: 5px;"></p>
+
+  <label for="rememberMe">
+    <input type="checkbox" id="rememberMe" name="rememberMe" />
+    Remember Me
+  </label>
+
+  <p id="forgotPassword"><a href="#">Forgot Password?</a></p>
+
+  <button type="button" class="btn user" id="signupUserBtn">Sign Up as User</button>
+  <button type="button" class="btn owner" onclick="window.location.href='carownerdashboard.html'">
+    Sign Up as Car Owner
+  </button>
+</div>
+          </form>
+
+          <form class="signup-form" id="signInForm" style="display: none;">
+    <h2>Welcome back!</h2>
+
+    <label for="signInEmail">Email Address</label>
+    <input type="email" id="signInEmail" name="signInEmail" placeholder="Enter Email" required />
+
+    <label for="signInPassword">Password</label>
+    <div class="password-wrapper">
+      <input type="password" id="signInPassword" name="signInPassword" placeholder="Enter Password" required />
+      <span class="toggle-password" onclick="togglePasswordVisibility('signInPassword', this)">👁️</span>
+    </div>
+
+    <button type="button" class="btn user" id="signInUserBtn">Sign In as User</button>
+    <button type="button" class="btn owner" id="signInOwnerBtn">Sign In as Car Owner</button>
+
+    <p>Don't have an account? <a href="#" id="showSignUpLink">Sign Up</a></p>
+  </form>
+
+</div>
+
+        </div>
+      </div>
+    </section>
+    
+    <section class="services">
+        <div class="services-text">
+            <h2>Rent a car now in your hand. <span>Try it now!</span></h2>
+            <div class="features">
+                <div class="feature">
+                    <img src="IMAGES/price.png" alt="Price Range" />
+                    <p><strong>A lot of price range</strong><br>We serve cars that match every budget.</p>
+                </div>
+                <div class="feature">
+                    <img src="IMAGES/support.png" alt="Support" />
+                    <p><strong>Technical Support guaranteed</strong><br>Available anytime you face an issue.</p>
+                </div>
+                <div class="feature">
+                    <img src="IMAGES/delivery.png" alt="Delivery" />
+                    <p><strong>24 hours car delivery</strong><br>Prompt and seamless drop-off.</p>
+                </div>
+                <div class="feature">
+                    <img src="IMAGES/driver.png" alt="Driver Service" />
+                    <p><strong>Expert Driver Service</strong><br>Navigate safely with our pros.</p>
+                </div>
+            </div>
+            <section class="hero-brands">
+                <div class="content">
+                    <p>Trusted by more than 50+ brands</p>
+                    <div class="brand-logos">
+                        <img src="IMAGES/teslalogo.png" alt="Tesla" />
+                        <img src="IMAGES/nissanlogo.png" alt="Nissan" />
+                        <img src="IMAGES/bmwlogo.png" alt="BMW" />
+                        <img src="IMAGES/toyotalogo.png" alt="Toyota" />
+                        <img src="IMAGES/lamborghinilogo.png" alt="Lamborghini" />
+                        <img src="IMAGES/fordlogo.png" alt="Ford" />
+                        <img src="IMAGES/mercedeslogo.png" alt="Mercedes" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="car-gallery video-bg">
+        <video autoplay muted loop playsinline class="bg-video">
+          <source src="IMAGES/13455568_3840_2160_30fps.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay">
+          <h2 id="car-name">Drive Your Dream Car</h2>
+        </div>
+    </section>
+           
+    <section class="car-rental-listing">
+        <h2>Our Cars for Rent</h2>
+      
+        <div class="slider-container">
+            <button class="prev-btn">←</button>
+      
+          <div class="car-list">
+            <div class="car-item">
+              <img src="IMAGES/sports-car1.png" alt="BMW Sports Car">
+              <h3>BMW Sports Car</h3>
+              <p>Perfect for city drives.</p>
+              <p><strong>20,000.00/week</strong></p>
+            </div>
+      
+            <div class="car-item">
+              <img src="IMAGES/hatchback.png" alt="Honda City Hatchback">
+              <h3>Honda City Hatchback</h3>
+              <p>Perfect for road trips.</p>
+              <p><strong>5,000.00/week</strong></p>
+            </div>
+      
+            <div class="car-item">
+              <img src="IMAGES/suv.png" alt="Chevrolet SUV">
+              <h3>Chevrolet SUV</h3>
+              <p>Luxury and comfortable.</p>
+              <p><strong>10,000.00/week</strong></p>
+            </div>
+      
+            <div class="car-item">
+              <img src="IMAGES/pickup.png" alt="Ford Pickup">
+              <h3>Ford Pickup</h3>
+              <p>Perfect for a smooth and classy ride.</p>
+              <p><strong>6,000.00/week</strong></p>
+            </div>
+      
+            <div class="car-item">
+              <img src="IMAGES/van.png" alt="Family Van">
+              <h3>Family Van</h3>
+              <p>Spacious and convenient.</p>
+              <p><strong>8,000.00/week</strong></p>
+            </div>
+      
+            <div class="car-item">
+              <img src="IMAGES/tesla.png" alt="Tesla Electric">
+              <h3>Tesla Electric</h3>
+              <p>Eco-friendly and stylish.</p>
+              <p><strong>15,000.00/week</strong></p>
+            </div>
+          </div>
+      
+          <button class="next-btn">→</button>
+        </div>
+    </section>
+      
+    <section class="driver-button video-bg">
+      <video autoplay muted loop playsinline class="driver-video">
+        <source src="IMAGES/3785380-hd_1920_1080_25fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="driver-overlay">
+        <h2 id="driver-name">Extra Income? We GOT you!</h2>
+        <a href="carownerdashboard.html" class="earn-button">Earn Now</a>
+      </div>
+    </section>
+    
+    <div class="about-us-section" id="about-us">
+  <h1>About <span class="highlight">Us</span></h1>
+  <p class="motto">“Driving innovation and trust, one ride at a time.”</p>
+
+  <div class="slideshow-container">
+    <div class="slide active">
+      <h2>Our Story</h2>
+      <p>Founded in 2019, we started as a small group of car enthusiasts who wanted to redefine how people experience car rentals. With a commitment to convenience, affordability, and community, we’ve grown to become a trusted platform for renters and car owners alike across Metro Manila and CALABARZON.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Our Mission</h2>
+      <p>To provide a seamless and secure car rental experience that empowers both vehicle owners and renters, while contributing to a smarter, more connected transportation future.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Our Values</h2>
+      <p>We believe in transparency, safety, and customer satisfaction. Our platform is built on trust, ensuring every transaction is backed by verified profiles, insurance options, and responsive support.</p>
+    </div>
+    </div>
+</div>
+  <div class="customer-feedbacks">
+    <h2>What people are saying</h2>
+    <p>What our lovely customers said about our service</p>
+    <div class="feedback-list">
+      <div class="feedback-box">
+        <blockquote>
+          "RRRRENTaCAR made exploring the city stress-free. Excellent service and the return was a snap. Two thumbs up! Good Work!"
+        </blockquote>
+        <strong>Sophie L</strong>
+        <span>City Explorer</span>
+      </div>
+      <div class="feedback-box">
+        <blockquote>
+          "A great experience! The car was in perfect condition, and I had everything I needed for a smooth ride. I highly recommend this car rental business."
+        </blockquote>
+        <strong>John D</strong>
+        <span>Frequent Traveler</span>
+      </div>
+      <div class="feedback-box">
+        <blockquote>
+          "I've rented from many companies, but RRRRENTaCAR stood out with their friendly service and easy process. Happy customer here"
+        </blockquote>
+        <strong>Maria K</strong>
+        <span>Business Traveler</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog-news" class="blog-news-section">
+<div class="container">
+<h2>Latest Updates & Articles</h2>
+<p class="section-desc"><i>What our lovely customers said about our
+service</i></p>
+<div class="blog-categories">
+<button class="category-btn active" data-category="all">All
+
+Posts</button>
+
+<button class="category-btn" data-category="tips">Travel & Car Rental
+
+Tips</button>
+
+<button class="category-btn" data-category="trends">Industry
+
+Trends</button>
+
+<button class="category-btn"
+
+data-category="announcements">Company Announcements</button>
+</div>
+<div class="blog-grid">
+
+<article class="blog-card" data-category="tips">
+<div class="blog-image">
+<img src="IMAGES/travel-tips.jpg" alt="Car Rental Tips">
+<span class="category-tag">Travel & Car Rental Tips</span>
+</div>
+<div class="blog-content">
+<h3>Essential Tips for First-Time Car Renters</h3>
+<p>Make your first rental experience smooth and hassle-free with
+
+our expert guidance...</p>
+
+<div class="blog-meta">
+<span class="date">May 1, 2024</span>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+</article>
+
+<article class="blog-card" data-category="trends">
+<div class="blog-image">
+<img src="IMAGES/ev-trend.jpg" alt="EV Trends">
+<span class="category-tag">Industry Trends</span>
+</div>
+<div class="blog-content">
+<h3>The Rise of Electric Vehicles in Car Rentals</h3>
+<p>Explore how electric vehicles are transforming the rental car industry...</p>
+
+<div class="blog-meta">
+<span class="date">April 28, 2024</span>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+</article>
+
+<article class="blog-card" data-category="announcements">
+<div class="blog-image">
+<img src="" alt="Company News">
+<span class="category-tag">Company Announcements</span>
+</div>
+<div class="blog-content">
+<h3>RREENNTTACAR Expands to New Locations</h3>
+<p>We're excited to announce our expansion to five new
+
+cities...</p>
+
+<div class="blog-meta">
+<span class="date">April 25, 2024</span>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+</article>
+</div>
+
+<div class="blog-pagination">
+<button class="pagination-btn active">1</button>
+<button class="pagination-btn">2</button>
+<button class="pagination-btn">3</button>
+<button class="pagination-btn next">Next →</button>
+</div>
+</div>
+</section>
+
+<section id="legal-policies">
+<div class="container">
+<h2>RREENNTTACAR — Legal & Policies</h2>
+<div class="policy-grid">
+<div class="policy-item">
+<h3>Eligibility</h3>
+<p>Must be 21+ years old with valid driver's license and credit/debit
+
+card</p>
+</div>
+<div class="policy-item">
+<h3>Payment</h3>
+<p>Accepted: GCash, PayMaya, cards. No cash payments.</p>
+</div>
+<div class="policy-item">
+<h3>Insurance</h3>
+<p>Basic coverage included. Optional upgrades available.</p>
+</div>
+<div class="policy-item">
+<h3>Privacy</h3>
+<p>Your data is protected and used only for essential services.</p>
+</div>
+<div class="policy-item">
+<h3>Vehicle Use</h3>
+<p>Legal purposes only. Unauthorized use prohibited.</p>
+</div>
+<div class="policy-item">
+<h3>Duration & Fees</h3>
+
+<p>24-hour minimum. Late returns incur charges.</p>
+</div>
+<div class="policy-item">
+<h3>Cancellations</h3>
+<p>Full refund within 24 hours of booking.</p>
+</div>
+</div>
+<div class="policy-footer">
+<p> <i>View our complete <a href="/terms-and-conditions">Terms &
+Conditions</a> and <a href="/privacy-policy">Privacy Policy</a></i></p>
+</div>
+</div>
+</section>
+
+  <section id="faqs" class="faqs-section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question">How do I rent a car from RREENNTTACAR?</div>
+      <div class="faq-answer">
+        Simply browse our available cars, select your dates, complete the booking process online, and provide necessary documents (valid driver's license, ID, and payment method).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">What are your payment methods?</div>
+      <div class="faq-answer">
+        We accept GCash, PayMaya, Paypal, and Credit/Debit cards. Cash payments are not accepted for security reasons.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">What happens if I return the car late?</div>
+      <div class="faq-answer">
+        Late returns incur additional charges of ₱1000 per day. Please contact our support team if you need to extend your rental period.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Is insurance included in the rental?</div>
+      <div class="faq-answer">
+        Yes, basic insurance is included. Additional coverage options are available for comprehensive protection.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">What is your cancellation and refund policy?</div>
+      <div class="faq-answer">
+        Our cancellation and refund policy is as follows:
+        <ul>
+          <li>Full refund if cancelled 24+ hours before pickup time</li>
+          <li>50% refund if cancelled between 12-24 hours before pickup</li>
+          <li>No refund for cancellations less than 12 hours before pickup</li>
+          <li>Refunds are processed within 5-7 business days</li>
+          <li>Force majeure situations are handled on a case-by-case basis</li>
+        </ul>
+        Please contact our customer support for any specific concerns.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="contact-bar" id="contact-bar">
+  <div class="contact-item">
+    <div class="icon-circle">
+      <img src="IMAGES/gmail.png" alt="Email Icon" />
+    </div>
+    <span class="contact-text">RRRRENTaCAR@gmail.com</span>
+  </div>
+
+  <div class="contact-item">
+    <div class="icon-circle">
+      <img src="IMAGES/phone.png" alt="Phone Icon" />
+    </div>
+    <span class="contact-textt">Phone Number: +63 9674454894</span>
+  </div>
+
+  <div class="contact-item socials">
+    <span class="contact-text">Our Socials:</span>
+    <a href="#"><img src="IMAGES/social.png" alt="Instagram" /></a>
+    <a href="#"><img src="IMAGES/facebook.png" alt="Facebook" /></a>
+    <a href="#"><img src="IMAGES/messenger.png" alt="Messenger" /></a>
+  </div>
+</div>
+
+
+    <footer class="main-footer">
+        <div class="footer-brand">
+            <img src="IMAGES/logo.png" alt="Logo" class="logo-img" />
+            <span>RRRRENTaCAR</span>
+            <p>Drive Your Dreams. Your Journey Starts Here!</p>
+        </div>
+        <div class="footer-links">
+            <div>
+                <h4>Pages</h4>
+                <ul><li>Home</li><li>Car Listings</li><li>Bookings & Reservations</li><li>Payment</li></ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul><li>Installation Manual</li><li>Download</li><li>Release Note</li></ul>
+            </div>
+            <div>
+                <h4>Brands</h4>
+                <ul><li>Tesla</li><li>Nissan</li><li>BMW</li><li>Toyota</li><li>Lamborghini</li><li>Ford</li><li>Chevrolet</li></ul>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <img src="IMAGES/twitter.png" />
+                    <img src="IMAGES/facebook.png" />
+                    <img src="IMAGES/tiktok.png" />
+                    <img src="IMAGES/instagram.png" />
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget" id="chatWidget">
+<div class="chat-header">
+<h4>Chatbot</h4>
+<button id="closeChat">×</button>
+</div>
+<div class="chat-messages" id="chatMessages">
+<div class="message bot">
+<div class="avatar">
+<img src="IMAGES/customer-service.png" alt="Chatbot">
+</div>
+<div class="text">
+Hi there 👋
+<br>How can I help you today?
+</div>
+</div>
+</div>
+<div class="chat-input">
+<input type="text" id="messageInput" placeholder="Write a message...">
+<button id="sendMessage">
+<img src="IMAGES/right-arrow.png" alt="Send">
+</button>
+</div>
+</div>
+<button class="chat-toggle" id="chatToggle">
+<img src="IMAGES/chat.png" alt="Chat">
+<span>Need Help?</span>
+</button>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const policyItems = document.querySelectorAll('.policy-item');
+          const policyLinks = document.querySelectorAll('.policy-footer a');
+      
+          policyItems.forEach(item => {
+              item.addEventListener('mouseenter', () => {
+                  item.style.transform = 'translateY(-5px)';
+                  item.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.1)';
+                  item.style.transition = 'all 0.3s ease';
+              });
+      
+              item.addEventListener('mouseleave', () => {
+                  item.style.transform = 'translateY(0)';
+                  item.style.boxShadow = 'none';
+              });
+      
+              item.addEventListener('click', () => {
+                  
+                  item.style.animation = 'pulse 0.5s';
+                  setTimeout(() => {
+                      item.style.animation = '';
+                  }, 500);
+              });
+          });
+      
+         
+          policyLinks.forEach(link => {
+              link.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  const targetId = link.getAttribute('href');
+                  const targetElement = document.querySelector(targetId);
+                  
+                  if (targetElement) {
+                      targetElement.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start'
+                      });
+                  }
+              });
+          });
+      
+          const style = document.createElement('style');
+          style.textContent = `
+              @keyframes pulse {
+                  0% { transform: scale(1); }
+                  50% { transform: scale(1.05); }
+                  100% { transform: scale(1); }
+              }
+          `;
+          document.head.appendChild(style);
+      });
+      </script>
+
+    <script>
+        function validateForm() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value.trim();
+            const nextButton = document.getElementById('nextButton1');
+            
+            if (firstName && lastName && age && parseInt(age) >= 21 && email) {
+                nextButton.removeAttribute('disabled');
+            } else {
+                nextButton.setAttribute('disabled', 'true');
+            }
+        }
+
+        function goToPage2() {
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "block";
+        }
+
+        function toggleGovIdInput() {
+            const govIdSelect = document.getElementById("govIdType");
+            const idNumberContainer = document.getElementById("govIdNumberContainer");
+            const idLabel = document.getElementById("govIdLabel");
+            const idInput = document.getElementById("govIdNumber");
+
+            if (govIdSelect.value !== "") {
+                idNumberContainer.style.display = "block";
+                idLabel.textContent = `Enter ${govIdSelect.value} Number:`;
+                idInput.value = "";8
+                idInput.setAttribute("required", "required");
+            } else {
+                idNumberContainer.style.display = "none";
+                idInput.removeAttribute("required");
+            }
+        }
+
+        function formatGovIdNumber() {
+            const idType = document.getElementById("govIdType").value;
+            const input = document.getElementById("govIdNumber");
+            let value = input.value;
+
+            switch (idType) {
+                case "SSS":
+                    value = value.replace(/\D/g, "").slice(0, 10);
+                    if (value.length >= 2) value = value.slice(0, 2) + "-" + value.slice(2);
+                    if (value.length >= 10) value = value.slice(0, 10) + "-" + value.slice(10);
+                    break;
+
+                case "PhilHealth ID":
+                    value = value.replace(/\D/g, "").slice(0, 13);
+                    if (value.length >= 4) value = value.slice(0, 4) + "-" + value.slice(4);
+                    if (value.length >= 10) value = value.slice(0, 10) + "-" + value.slice(10);
+                    break;
+
+                case "UMID":
+                case "National ID":
+                    value = value.replace(/\D/g, "").slice(0, 12);
+                    if (value.length >= 4) value = value.slice(0, 4) + "-" + value.slice(4);
+                    if (value.length >= 8) value = value.slice(0, 9) + "-" + value.slice(9);
+                    break;
+
+                case "Philippine Passport":
+                    value = value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 8);
+                    break;
+
+                case "Postal ID":
+                    value = value.replace(/\D/g, "").slice(0, 12);
+                    break;
+
+                case "Voter's ID":
+                    value = value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 15);
+                    break;
+
+                default:
+                    break;
+            }
+
+            input.value = value;
+        }
+
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            validateForm();
+
+            
+            const carList = document.querySelector('.car-list');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            prevBtn.addEventListener('click', () => {
+                carList.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                carList.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            // About section animation
+            const aboutSection = document.getElementById('about-us');
+        
+            window.addEventListener('scroll', function() {
+                const sectionTop = aboutSection.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+            
+                if (sectionTop < windowHeight - 100) { 
+                    aboutSection.classList.add('show');
+                }
+            });
+        });
+    </script>
+    <script>
+  function togglePasswordVisibility(id, iconElement) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+      input.type = "text";
+      iconElement.textContent = "🙈";
+    } else {
+      input.type = "password";
+      iconElement.textContent = "👁️";
+    }
+  }
+
+  function checkPasswordMatch() {
+    const pw = document.getElementById('password').value;
+    const confirmPw = document.getElementById('confirmPassword').value;
+    const msg = document.getElementById('passwordMatchMsg');
+
+    if (pw && confirmPw) {
+      if (pw === confirmPw) {
+        msg.textContent = "✅ Passwords match";
+        msg.style.color = "green";
+      } else {
+        msg.textContent = "❌ Passwords do not match";
+        msg.style.color = "red";
+      }
+    } else {
+      msg.textContent = "";
+    }
+  }
+</script>
+    <script>
+        function goToPage3() {
+  document.getElementById("page2").style.display = "none";
+  document.getElementById("page3").style.display = "block";
+}
+    </script>
+<script>
+document.getElementById("signupUserBtn").addEventListener("click", function (e) {
+  e.preventDefault();
+  window.location.href = "userdashboard.html";
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      document.querySelectorAll('.faq-answer').forEach(a => a.style.maxHeight = null);
+      document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+      const answer = q.nextElementSibling;
+      q.classList.add('active');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    });
+  });
+
+ 
+  document.querySelector('.contact-support')?.addEventListener('click', e => {
+    e.currentTarget.classList.toggle('active');
+  });
+
+  
+  const chat = {
+    widget: document.getElementById('chatWidget'),
+    toggle: document.getElementById('chatToggle'),
+    close: document.getElementById('closeChat'),
+    input: document.getElementById('messageInput'),
+    send: document.getElementById('sendMessage'),
+    messages: document.getElementById('chatMessages'),
+    faqs: [
+      { keywords: ["how", "book", "reservation"], response: "You can book online via our website or message us directly." },
+      { keywords: ["where", "location", "branch"], response: "We have branches in:\n- Caloocan City\n- Las Piñas City\n- Makati City\n- Malabon City\n- Mandaluyong City\n- Marikina City\n- Manila City\n- Muntinlupa City\n- Navotas City\n- Parañaque City\n- Pasay City\n- Pasig City\n- Quezon City\n- San Juan City\n- Taguig City\n- Valenzuela City\n- Pateros\n- Cavite\n- Laguna\n- Batangas\n- Rizal\n- Quezon Province." },
+      { keywords: ["when", "schedule", "available"], response: "You can book anytime. Cars are usually available daily and weekly." },
+      { keywords: ["requirement", "id", "license"], response: "You'll need a valid license, a government-issued ID, and a deposit." },
+      { keywords: ["price", "rate", "cost"], response: "Prices vary by car and duration. Want a quote?" },
+      { keywords: ["contact", "email", "phone"], response: "Email: RRRRENTaCAR@gmail.com | Phone: +63 967 445 4894" },
+      { keywords: ["payment", "gcash", "card"], response: "We accept GCash, bank transfer, and credit/debit cards." },
+      { keywords: ["cancel", "cancellation"], response: "Please cancel 24 hours in advance to avoid penalties." },
+      { keywords: ["extend", "extension"], response: "Yes, just inform us before your end time." },
+      { keywords: ["driver", "chauffeur"], response: "Drivers are available upon request for an extra fee." },
+      { keywords: ["fuel", "gas"], response: "Cars come with full tanks. Return with the same level." },
+      { keywords: ["age", "under 21"], response: "You must be 21+ years old with 1+ year of driving experience." }
+    ],
+
+    startChat() {
+      chat.widget.style.display = 'flex';
+      chat.addMessage("Hi there! 👋 Ask me how, where, when, or what about our services.", 'bot');
+    },
+
+    closeChat() {
+      chat.widget.style.display = 'none';
+    },
+
+    addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = `message ${sender}`;
+      msg.innerHTML = sender === 'bot'
+        ? `<div class="avatar"><img src="IMAGES/customer-service-agent.png" alt="Chatbot"></div><div class="text">${text.replace(/\n/g, '<br>')}</div>`
+        : `<div class="text">${text}</div>`;
+      chat.messages.appendChild(msg);
+      chat.messages.scrollTop = chat.messages.scrollHeight;
+    },
+
+    getResponse(input) {
+      const lower = input.toLowerCase().trim();
+
+      
+      const greetings = ["hi", "hello", "hey", "howdy", "greetings"];
+      if (greetings.some(greet => lower === greet || lower.startsWith(greet + " "))) {
+        return "Hello! How can I help you today?";
+      }
+
+      
+      for (let { keywords, response } of chat.faqs) {
+        if (keywords.some(k => lower.includes(k))) return response;
+      }
+
+      return "Thanks for your question! Our team will get back to you shortly.";
+    },
+
+    handleMessage() {
+      const msg = chat.input.value.trim();
+      if (!msg) return;
+      chat.addMessage(msg, 'user');
+      chat.input.value = '';
+      setTimeout(() => chat.addMessage(chat.getResponse(msg), 'bot'), 800);
+    }
+  };
+
+  chat.toggle?.addEventListener('click', chat.startChat);
+  chat.close?.addEventListener('click', chat.closeChat);
+  chat.send?.addEventListener('click', chat.handleMessage);
+  chat.input?.addEventListener('keypress', e => e.key === 'Enter' && chat.handleMessage());
+});
+</script>
+<script>
+  let slideIndex = 0;
+  const slides = document.querySelectorAll(".slide");
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("active");
+    });
+    slides[index].classList.add("active");
+  }
+
+  function autoPlaySlides() {
+    slideIndex = (slideIndex + 1) % slides.length;
+    showSlide(slideIndex);
+  }
+
+  showSlide(slideIndex); 
+  setInterval(autoPlaySlides, 2000); 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    question.addEventListener('click', () => {
+      faqItems.forEach(otherItem => {
+        const otherQuestion = otherItem.querySelector('.faq-question');
+        const otherAnswer = otherItem.querySelector('.faq-answer');
+
+        if (otherItem !== item) {
+          otherQuestion.classList.remove('active');
+          otherAnswer.classList.remove('active');
+        }
+      });
+
+      question.classList.toggle('active');
+      answer.classList.toggle('active');
+    });
+  });
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const categoryButtons = document.querySelectorAll('.blog-news-section.category-btn');
+const blogCards = document.querySelectorAll('.blog-card');
+categoryButtons.forEach(button => {
+button.addEventListener('click', () => {
+categoryButtons.forEach(btn => btn.classList.remove('active'));
+button.classList.add('active');
+const category = button.dataset.category;
+blogCards.forEach(card => {
+if (category === 'all' || card.dataset.category === category) {
+card.style.display = 'block';
+} else {
+card.style.display = 'none';
+}
+});
+});
+});
+});
+</script>
+
+<script>
+
+document.getElementById('signupUserBtn').addEventListener('click', () => {
+  
+  const userData = {
+    firstName: document.getElementById('firstName').value,
+    lastName: document.getElementById('lastName').value,
+    middleName: document.getElementById('middleName').value,
+    suffix: document.getElementById('suffix').value,
+    age: document.getElementById('age').value,
+    email: document.getElementById('email').value,
+    govIdType: document.getElementById('govIdType').value,
+    govIdNumber: document.getElementById('govIdNumber').value,
+    address: document.getElementById('address').value,
+    driverLicense: document.getElementById('driverLicense').value,
+    };
+
+    localStorage.setItem('userProfile', JSON.stringify(userData));
+
+  
+  window.location.href = 'userdashboard.html';
+});
+
+document.getElementById('signInSwitchBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('signInForm').style.display = 'block';
+});
+
+document.getElementById('showSignInLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('signInForm').style.display = 'block';
+});
+
+
+document.getElementById('showSignUpLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('signInForm').style.display = 'none';
+  document.getElementById('signupForm').style.display = 'block';
+});
+
+
+function togglePasswordVisibility(inputId, icon) {
+  const input = document.getElementById(inputId);
+  if (input.type === "password") {
+    input.type = "text";
+    icon.textContent = "🙈";
+  } else {
+    input.type = "password";
+    icon.textContent = "👁️";
+  }
+}
+
+document.getElementById('signInUserBtn').addEventListener('click', () => {
+
+  window.location.href = 'userdashboard.html';
+});
+
+document.getElementById('signInOwnerBtn').addEventListener('click', () => {
+
+  window.location.href = 'carownerdashboard.html';
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const policyItems = document.querySelectorAll('.policy-item');
+  const policyLinks = document.querySelectorAll('.policy-footer a');
+
+  policyItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      item.style.transform = 'translateY(-5px)';
+      item.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.1)';
+      item.style.transition = 'all 0.3s ease';
+    });
+
+    item.addEventListener('mouseleave', () => {
+      item.style.transform = 'translateY(0)';
+      item.style.boxShadow = 'none';
+    });
+
+    item.addEventListener('click', () => {
+      item.style.animation = 'pulse 0.5s';
+      setTimeout(() => {
+        item.style.animation = '';
+      }, 500);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
