@@ -446,6 +446,7 @@ select#return-area option[disabled] {
 .booking-sum-container {
 background: linear-gradient(135deg, #5c0e14, #060606);
 padding: 1rem;
+
 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 border-radius: 12px;
 color: #ffd700;
