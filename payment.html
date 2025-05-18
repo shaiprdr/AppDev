@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Rental - Payment</title>
+  <link rel="stylesheet" href="CSS/payment.css">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="IMAGES/logo.png" alt="RREENNTTACAR Logo" class="logo" />
+      <h1>RREENNTTACAR</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cars.html">Cars</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Payment Details</h2>
+
+    <section class="summary">
+      <p><strong>Car Price:</strong> <span id="summary-carPrice">$25,000</span></p>
+      <p><strong>Delivery Fee:</strong> <span id="summary-deliveryFee">$150</span></p>
+      <p><strong>Service Fee:</strong> <span id="summary-serviceFee">$100</span></p>
+
+      <div class="addons">
+        <p><strong>Add-ons:</strong></p>
+        <label><input type="checkbox" id="gps" onchange="updateAddOns()"> GPS (+$50)</label><br>
+        <label><input type="checkbox" id="babySeat" onchange="updateAddOns()"> Baby Seat (+$40)</label>
+      </div>
+
+      <p><strong>Add-ons Total:</strong> <span id="summary-addonsTotal">$0</span></p>
+      <div class="voucher">
+        <label for="voucherCode"><strong>Discount Voucher:</strong></label>
+        <input type="text" id="voucherCode" placeholder="Enter code" oninput="applyVoucher()" />
+      </div>
+
+      <p><strong>Discount Applied:</strong> <span id="summary-discount">- $0</span></p>
+      <p><strong>Downpayment (20%):</strong> <span id="summary-downpayment">$5,050</span></p>
+      <p><strong>Total Payment:</strong> <span id="summary-totalPayment">$25,250</span></p>
+
+      <button class="submit-btn" onclick="submitPayment()">Pay Now</button>
+    </section>
+
+    <section id="e-receipt" style="display:none;">
+      <h2>E-Receipt</h2>
+
+      <p class="label">Transaction Code:</p>
+      <p id="txnCode">TXN-XXXXX</p>
+
+      <p class="label">Date & Time:</p>
+      <p id="receipt-datetime">--</p>
+
+      <p class="label">Payment Method:</p>
+      <p id="receipt-method">--</p>
+
+      <p class="label">Renter Name:</p>
+      <p id="receipt-name">--</p>
+
+      <p class="label">Barcode:</p>
+      <p id="barcode">|| ||| | || |||| ||| |</p>
+
+      <div class="action-buttons">
+        <button onclick="window.print()">🖨️ Print</button>
+        <button onclick="downloadReceipt()">📥 Download</button>
+        <button onclick="shareReceipt()">🔗 Share</button>
+      </div>
+    </section>
+
+    <section class="payment-methods">
+      <h3>Choose Payment Method</h3>
+      <label><input type="radio" name="paymentMethod" value="Cash" onclick="showForm('cashForm')" checked> Cash</label>
+      <label><input type="radio" name="paymentMethod" value="Card" onclick="showForm('cardForm')"> Credit/Debit Card</label>
+      <label><input type="radio" name="paymentMethod" value="GCash" onclick="showForm('gcashForm')"> GCash</label>
+      <label><input type="radio" name="paymentMethod" value="Maya" onclick="showForm('mayaForm')"> Maya</label>
+
+      <div class="payment-details" id="cashForm">
+        <label for="renterName">Your Name (optional):</label>
+        <input type="text" id="renterName" placeholder="Enter your name">
+      </div>
+
+      <div class="payment-details" id="cardForm" style="display:none;">
+        <input type="text" placeholder="Cardholder Name">
+        <input type="text" placeholder="Card Number">
+        <input type="text" placeholder="Expiry (MM/YY)">
+        <input type="text" placeholder="CVV">
+      </div>
+
+      <div class="payment-details" id="gcashForm" style="display:none;">
+        <input type="text" placeholder="GCash Number">
+      </div>
+
+      <div class="payment-details" id="mayaForm" style="display:none;">
+        <input type="text" placeholder="Maya Account Email">
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showForm(formId) {
+      const forms = document.querySelectorAll('.payment-details');
+      forms.forEach(form => form.style.display = 'none');
+      document.getElementById(formId).style.display = 'block';
+    }
+
+    function submitPayment() {
+      const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+      const name = document.getElementById('renterName')?.value || "N/A";
+
+      document.getElementById('receipt-method').innerText = method;
+      document.getElementById('receipt-name').innerText = name;
+
+      const txn = "TXN-" + Math.floor(Math.random() * 90000 + 10000);
+      document.getElementById('txnCode').innerText = txn;
+      document.getElementById('barcode').innerText = "|| ||| | || |||| ||| |";
+
+      const date = new Date();
+      document.getElementById('receipt-datetime').innerText = date.toLocaleString();
+
+      document.getElementById('e-receipt').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function downloadReceipt() {
+      alert('Receipt downloaded!');
+    }
+
+    function shareReceipt() {
+      alert('Receipt shared!');
+    }
+
+    let basePrice = 25000;
+    let deliveryFee = 150;
+    let serviceFee = 100;
+    let gpsFee = 50;
+    let babySeatFee = 40;
+    let discount = 0;
+
+    function updateAddOns() {
+      let totalAddons = 0;
+      if (document.getElementById('gps').checked) totalAddons += gpsFee;
+      if (document.getElementById('babySeat').checked) totalAddons += babySeatFee;
+      document.getElementById('summary-addonsTotal').innerText = "$" + totalAddons;
+      updateTotals(totalAddons, discount);
+    }
+
+    function applyVoucher() {
+      const code = document.getElementById('voucherCode').value.trim().toUpperCase();
+      discount = code === "VOUCHER20" ? 200 : 0;
+      document.getElementById('summary-discount').innerText = "- $" + discount;
+      updateAddOns();
+    }
+
+    function updateTotals(addons, discountVal) {
+      const total = basePrice + deliveryFee + serviceFee + addons - discountVal;
+      const downpayment = total * 0.2;
+      document.getElementById('summary-totalPayment').innerText = "$" + total.toLocaleString();
+      document.getElementById('summary-downpayment').innerText = "$" + downpayment.toLocaleString();
+    }
+
+    showForm('cashForm');
+    window.onload = () => {
+      updateAddOns();
+    };
+  </script>
+</body>
+</html>
