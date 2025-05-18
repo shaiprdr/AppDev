@@ -26,7 +26,6 @@ body {
   --card-background: linear-gradient(135deg, rgba(92, 14, 20, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
 }
 
-
 header {
   background-color: var(--darkest-red);
   padding: 1.0rem 2.0rem;
@@ -48,6 +47,7 @@ header {
 }
 
 .logo {
+  margin-top: 33px;
   height: 40px;
   filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
   transition: var(--transition-standard);
@@ -110,7 +110,6 @@ nav ul li a:focus::after {
   width: 100%;
 }
 
-
 .container {
   max-width: 1000px;
   margin: 3.5rem auto 5rem auto;
@@ -148,7 +147,6 @@ h2::after {
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
-
 img {
   width: 100%;
   max-height: 300px;
@@ -164,7 +162,6 @@ img:hover {
   transform: scale(1.03);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.3);
 }
-
 
 .car-detail {
   margin-bottom: 1.5rem;
@@ -202,7 +199,6 @@ img:hover {
 .car-detail ul li {
   margin-bottom: 0.5rem;
 }
-
 
 .payment-methods {
   margin: 3rem 0 2rem 0;
@@ -264,7 +260,6 @@ img:hover {
   outline-color: var(--primary-gold);
 }
 
-
 .payment-details {
   display: none;
   margin-top: 2rem;
@@ -309,6 +304,27 @@ img:hover {
 
 .input-group input {
   flex: 1;
+}
+
+.voucher button {
+  padding: 0.4rem 1rem !important;
+  font-size: 0.85rem !important;
+  border-radius: 6px !important;
+  background: linear-gradient(135deg, #6d6d6d 0%, #1a1a1a 100%) !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  width: auto !important;
+}
+
+.voucher button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3) !important;
+  background: linear-gradient(135deg, #7d7d7d 0%, #212121 100%) !important;
+}
+
+
+.voucher button:active {
+  background-color: #00408d;
 }
 
 
@@ -372,7 +388,6 @@ button:active {
   transform: translateY(-1px);
 }
 
-
 #e-receipt {
   display: none;
   margin-top: 3.5rem;
@@ -400,7 +415,6 @@ button:active {
   animation: borderGlow 6s linear infinite;
 }
 
-
 .summary-detail,
 .receipt-summary {
   margin-top: 1.8rem;
@@ -422,7 +436,6 @@ button:active {
   text-align: right;
 }
 
-
 #barcode {
   font-family: 'Courier New', monospace;
   font-size: 2rem;
@@ -434,7 +447,6 @@ button:active {
   border-radius: 10px;
   letter-spacing: 2px;
 }
-
 
 .action-buttons {
   text-align: center;
@@ -465,7 +477,6 @@ button:active {
   background: linear-gradient(135deg, #5c5c5c 0%, #1c1c1c 100%);
   box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
 }
-
 
 .addons {
   margin-top: 2.5rem;
@@ -508,7 +519,6 @@ button:active {
   cursor: pointer;
 }
 
-
 .voucher-section {
   margin-top: 2.5rem;
   background: rgba(0, 0, 0, 0.2);
@@ -516,7 +526,6 @@ button:active {
   border-radius: 16px;
   border: 1px solid rgba(255, 215, 0, 0.1);
 }
-
 
 .voucher-section input[type="text"] {
   width: 100%;
@@ -543,7 +552,6 @@ button:active {
   color: rgba(255, 255, 255, 0.5);
 }
 
-
 .summary {
   margin-top: 2.5rem;
   background: rgba(0, 0, 0, 0.2);
@@ -561,7 +569,6 @@ button:active {
   color: var(--primary-gold);
   font-weight: 700;
 }
-
 
 @keyframes fadeIn {
   from {
@@ -583,7 +590,6 @@ button:active {
   }
 }
 
-
 .toast {
   position: fixed;
   bottom: 30px;
@@ -604,7 +610,6 @@ button:active {
   transform: translateY(0);
 }
 
-
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -623,7 +628,6 @@ button:active {
   border-radius: 2px;
   transition: var(--transition-standard);
 }
-
 
 @media (max-width: 768px) {
   header {
@@ -715,7 +719,6 @@ button:active {
     height: 40px;
   }
 }
-
 
 @media print {
   body * {
