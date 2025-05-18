@@ -80,7 +80,7 @@
     
               <label for="age">Age</label>
               <input type="number" min="21" id="age" name="age" required oninput="validateForm()" placeholder="Age above 21">
-    
+
               <label for="email">Email Address</label>
               <input type="email" id="email" name="email" required oninput="validateForm()" placeholder="Enter Email Address">
     
@@ -88,7 +88,6 @@
             </div>
             <p>Already have an account? <a href="#" id="showSignInLink">Log In</a></p>
     
-            <!-- Page 2 (Updated) -->
 <div id="page2" class="form-page" style="display: none;">
   <label for="govIdType">Government ID</label>
   <select id="govIdType" name="govIdType" onchange="toggleGovIdInput(); validateForm()">
@@ -106,6 +105,9 @@
     <label for="govIdNumber" id="govIdLabel">Enter Government ID Number:</label>
     <input type="text" id="govIdNumber" name="govIdNumber" oninput="formatGovIdNumber()" />
   </div>
+
+  <label for="age">Contact Number</label>
+  <input type="text"  id="number" name="number" required oninput="validateForm()" placeholder="Enter phone number">
 
   <label for="address">Address</label>
   <input type="text" id="address" name="address" required oninput="validateForm()" placeholder="Enter Address">
@@ -749,7 +751,7 @@ Hi there 👋
                 carList.scrollBy({ left: 300, behavior: 'smooth' });
             });
 
-            // About section animation
+            
             const aboutSection = document.getElementById('about-us');
         
             window.addEventListener('scroll', function() {
@@ -781,16 +783,142 @@ Hi there 👋
 
     if (pw && confirmPw) {
       if (pw === confirmPw) {
-        msg.textContent = "✅ Passwords match";
+        msg.textContent = "Passwords match";
         msg.style.color = "green";
       } else {
-        msg.textContent = "❌ Passwords do not match";
+        msg.textContent = "Passwords do not match";
         msg.style.color = "red";
       }
     } else {
       msg.textContent = "";
     }
   }
+</script>
+<script>
+ 
+document.addEventListener("DOMContentLoaded", () => {
+  
+  window.validateForm = function() {
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    
+    if (page1 && page1.style.display !== 'none') {
+      validatePage1();
+    } else if (page2 && page2.style.display !== 'none') {
+      validatePage2();
+    }
+  }
+  
+  function validatePage1() {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const age = document.getElementById('age').value;
+    const email = document.getElementById('email').value;
+    const nextButton = document.getElementById('nextButton1');
+    
+    
+    if (firstName && lastName && age >= 21 && email) {
+      nextButton.disabled = false;
+    } else {
+      nextButton.disabled = true;
+    }
+  }
+  
+  function validatePage2() {
+    const govIdType = document.getElementById('govIdType').value;
+    const govIdNumber = document.getElementById('govIdNumber').value;
+    const contactNumber = document.getElementById('number').value;
+    const address = document.getElementById('address').value;
+    const driverLicense = document.getElementById('driverLicense').value;
+    const nextButton = document.getElementById('nextButton2');
+    
+    
+    if (govIdType && govIdNumber && contactNumber && address && driverLicense) {
+      nextButton.disabled = false;
+    } else {
+      nextButton.disabled = true;
+    }
+  }
+  
+ 
+  window.goToPage2 = function() {
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'block';
+    validatePage2();
+  }
+  
+  window.goToPage3 = function() {
+ 
+    saveFormData();
+  
+    window.location.href = 'userdashboard.html';
+  }
+  
+
+  function saveFormData() {
+    const userData = {
+     
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      middleName: document.getElementById('middleName').value,
+      suffix: document.getElementById('suffix').value,
+      age: document.getElementById('age').value,
+      email: document.getElementById('email').value,
+      
+
+      govIdType: document.getElementById('govIdType').value,
+      govIdNumber: document.getElementById('govIdNumber').value,
+      contactNumber: document.getElementById('number').value,
+      address: document.getElementById('address').value,
+      driverLicense: document.getElementById('driverLicense').value
+    };
+    
+   
+    localStorage.setItem('userProfile', JSON.stringify(userData));
+  }
+ 
+  window.toggleGovIdInput = function() {
+    const govIdType = document.getElementById('govIdType').value;
+    const govIdContainer = document.getElementById('govIdNumberContainer');
+    const govIdLabel = document.getElementById('govIdLabel');
+    
+    if (govIdType) {
+      govIdContainer.style.display = 'block';
+      govIdLabel.textContent = `Enter ${govIdType} Number:`;
+    } else {
+      govIdContainer.style.display = 'none';
+    }
+    validateForm();
+  }
+  
+  
+  window.formatGovIdNumber = function() {
+    const govIdType = document.getElementById('govIdType').value;
+    const govIdNumber = document.getElementById('govIdNumber');
+    
+   
+    if (govIdType === 'SSS') {
+      
+      const value = govIdNumber.value.replace(/[^\d]/g, '');
+      if (value.length > 0) {
+        let formatted = value;
+        if (value.length > 2) {
+          formatted = value.substring(0, 2) + '-' + value.substring(2);
+        }
+        if (value.length > 9) {
+          formatted = formatted.substring(0, 10) + '-' + value.substring(9);
+        }
+        govIdNumber.value = formatted;
+      }
+    }
+    
+    
+    validateForm();
+  }
+  
+
+  validateForm();
+});
 </script>
     <script>
         function goToPage3() {
@@ -945,16 +1073,16 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
 const categoryButtons = document.querySelectorAll('.blog-news-section.category-btn');
 const blogCards = document.querySelectorAll('.blog-card');
-categoryButtons.forEach(button => {
+            categoryButtons.forEach(button => {
 button.addEventListener('click', () => {
 categoryButtons.forEach(btn => btn.classList.remove('active'));
 button.classList.add('active');
 const category = button.dataset.category;
-blogCards.forEach(card => {
-if (category === 'all' || card.dataset.category === category) {
-card.style.display = 'block';
-} else {
-card.style.display = 'none';
+                blogCards.forEach(card => {
+              if (category === 'all' || card.dataset.category === category) {
+                 card.style.display = 'block';
+               } else {
+                 card.style.display = 'none';
 }
 });
 });
@@ -1051,6 +1179,236 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 500);
     });
   });
+});
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+ 
+  window.validateForm = function() {
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    
+    if (page1 && page1.style.display !== 'none') {
+      validatePage1();
+    } else if (page2 && page2.style.display !== 'none') {
+      validatePage2();
+    }
+  }
+  
+  function validatePage1() {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const age = document.getElementById('age').value;
+    const email = document.getElementById('email').value;
+    const nextButton = document.getElementById('nextButton1');
+    
+    
+    if (firstName && lastName && age >= 21 && email) {
+      nextButton.disabled = false;
+    } else {
+      nextButton.disabled = true;
+    }
+  }
+  
+  function validatePage2() {
+    const govIdType = document.getElementById('govIdType').value;
+    const govIdNumber = document.getElementById('govIdNumber').value;
+    const contactNumber = document.getElementById('number').value;
+    const address = document.getElementById('address').value;
+    const driverLicense = document.getElementById('driverLicense').value;
+    const nextButton = document.getElementById('nextButton2');
+    
+    // Check if all required fields are filled
+    if (govIdType && govIdNumber && contactNumber && address && driverLicense) {
+      nextButton.disabled = false;
+    } else {
+      nextButton.disabled = true;
+    }
+  }
+  
+  
+  window.goToPage2 = function() {
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'block';
+    validatePage2();
+  }
+  
+  window.goToPage3 = function() {
+    
+    saveFormData();
+    
+    
+    window.location.href = 'userdashboard.html';
+  }
+  
+  
+  function saveFormData() {
+    const userData = {
+      
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      middleName: document.getElementById('middleName').value,
+      suffix: document.getElementById('suffix').value,
+      age: document.getElementById('age').value,
+      email: document.getElementById('email').value,
+      
+     
+      govIdType: document.getElementById('govIdType').value,
+      govIdNumber: document.getElementById('govIdNumber').value,
+      contactNumber: document.getElementById('number').value,
+      address: document.getElementById('address').value,
+      driverLicense: document.getElementById('driverLicense').value
+    };
+    
+    
+    localStorage.setItem('userProfile', JSON.stringify(userData));
+  }
+  
+  
+  window.toggleGovIdInput = function() {
+    const govIdType = document.getElementById('govIdType').value;
+    const govIdContainer = document.getElementById('govIdNumberContainer');
+    const govIdLabel = document.getElementById('govIdLabel');
+    
+    if (govIdType) {
+      govIdContainer.style.display = 'block';
+      govIdLabel.textContent = `Enter ${govIdType} Number:`;
+    } else {
+      govIdContainer.style.display = 'none';
+    }
+    validateForm();
+  }
+  
+  
+  window.formatGovIdNumber = function() {
+    const govIdType = document.getElementById('govIdType').value;
+    const govIdNumber = document.getElementById('govIdNumber');
+    
+    
+    const value = govIdNumber.value.replace(/[^\dA-Za-z]/g, '');
+    
+    
+    switch(govIdType) {
+      case 'SSS':
+        
+        if (value.length > 0) {
+          let formatted = value;
+          if (value.length > 2) {
+            formatted = value.substring(0, 2) + '-' + value.substring(2);
+          }
+          if (value.length > 9) {
+            formatted = formatted.substring(0, 11) + '-' + value.substring(9);
+          }
+          govIdNumber.value = formatted.substring(0, 13); 
+        }
+        break;
+        
+      case 'PhilHealth ID':
+        
+        if (value.length > 0) {
+          let formatted = value;
+          if (value.length > 2) {
+            formatted = value.substring(0, 2) + '-' + value.substring(2);
+          }
+          if (value.length > 11) {
+            formatted = formatted.substring(0, 14) + '-' + value.substring(11);
+          }
+          govIdNumber.value = formatted.substring(0, 16); 
+        }
+        break;
+        
+      case 'UMID':
+        
+        if (value.length > 0) {
+          let formatted = value;
+          if (value.length > 4) {
+            formatted = value.substring(0, 4) + '-' + value.substring(4);
+          }
+          if (value.length > 11) {
+            formatted = formatted.substring(0, 13) + '-' + value.substring(11);
+          }
+          govIdNumber.value = formatted.substring(0, 15); 
+        }
+        break;
+        
+      case 'Postal ID':
+   
+        if (value.length > 0) {
+          let formatted = value;
+          if (value.length > 4) {
+            formatted = value.substring(0, 4) + '-' + value.substring(4);
+          }
+          if (value.length > 8) {
+            formatted = formatted.substring(0, 9) + '-' + value.substring(8);
+          }
+          govIdNumber.value = formatted.substring(0, 14); 
+        }
+        break;
+        
+      case 'National ID':
+      
+        if (value.length > 0) {
+          let formatted = value;
+          if (value.length > 4) {
+            formatted = value.substring(0, 4) + '-' + value.substring(4);
+          }
+          if (value.length > 8) {
+            formatted = formatted.substring(0, 9) + '-' + value.substring(8);
+          }
+          if (value.length > 12) {
+            formatted = formatted.substring(0, 14) + '-' + value.substring(12);
+          }
+          govIdNumber.value = formatted.substring(0, 19);
+        }
+        break;
+        
+      case 'Voter\'s ID':
+
+        if (value.length > 0) {
+          let formatted = value;
+          if (value.length > 4) {
+            formatted = value.substring(0, 4) + '-' + value.substring(4);
+          }
+          if (value.length > 9) {
+            formatted = formatted.substring(0, 10) + '-' + value.substring(9);
+          }
+          govIdNumber.value = formatted.substring(0, 19); 
+        }
+        break;
+        
+      case 'Philippine Passport':
+        
+        if (value.length > 0) {
+         
+          let formatted = value;
+          if (!formatted.startsWith('P')) {
+            formatted = 'P' + formatted;
+          }
+          govIdNumber.value = formatted.substring(0, 9); 
+        }
+        break;
+        
+      default:
+       
+        govIdNumber.value = value;
+    }
+    
+    validateForm();
+  }
+  
+
+  const showSignInLink = document.getElementById('showSignInLink');
+  if (showSignInLink) {
+    showSignInLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      alert('Login functionality would go here');
+    });
+  }
+  
+
+  validateForm();
 });
 </script>
 
