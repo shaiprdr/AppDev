@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Owner Dashboard</title>
+  <link rel="stylesheet" href="CSS/carownerdashboard.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div>
+      <div class="logo">Car Owner Dashboard</div>
+      <div class="menu">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Discover</a>
+        <a href="#">Calendar</a>
+        <a href="#">Saved</a>
+        <a href="#">Inbox</a>
+
+        <h4>Report</h4>
+        <a href="#">Transactions</a>
+        <a href="#">Car Reports</a>
+      </div>
+
+      <div class="cta">
+        <p>We connect you with thousands of potential buyers in your area.</p>
+        <button id="uploadBtn">Upload Car</button>
+      </div>
+    </div>
+    <a href="#" class="logout">Logout</a>
+  </aside>
+
+  <main class="main">
+    <div class="top-bar">
+      <div class="dashboard-content">
+        <div class="banner">
+          <h2>Get where you need to go with our service</h2>
+          <p>Budget-friendly car rentals for road trips, city visits, and more. Book now and start exploring.</p>
+          <button>Start Exploring</button>
+        </div>
+
+        <div class="car-listings">
+          <h3>Bookings Received</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>No</th><th>Client Name</th><th>Car Type</th><th>Car Number</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Liam Johnson</td><td>Honda Brio</td><td>010 MDR</td><td><span class="status ongoing">On Going</span></td></tr>
+              <tr><td>2</td><td>Noah Anderson</td><td>Pajero Sport</td><td>696 TON</td><td><span class="status finished">Finished</span></td></tr>
+              <tr><td>3</td><td>Ethan Smith</td><td>Agya</td><td>666 KIT</td><td><span class="status finished">Finished</span></td></tr>
+              <tr><td>4</td><td>Mason Davis</td><td>N/A</td><td>N/A</td><td><span class="status canceled">Canceled</span></td></tr>
+              <tr><td>5</td><td>Jackson Williams</td><td>Honda Brio</td><td>374 AWN</td><td><span class="status finished">Finished</span></td></tr>
+              <tr><td>6</td><td>Oliver Thompson</td><td>Agya</td><td>475 MLL</td><td><span class="status ongoing">On Going</span></td></tr>
+              <tr><td>7</td><td>Elijah Harris</td><td>Agya</td><td>842 LUI</td><td><span class="status ongoing">On Going</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="stats">
+          <div class="stat-box">
+            <h4>Turnover</h4>
+            <p>$1492.21</p>
+          </div>
+          <div class="stat-box">
+            <h4>Income</h4>
+            <p>$7432.53</p>
+          </div>
+          <div class="stat-box">
+            <h4>Outcome</h4>
+            <p>$7592.84</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <img src="https://via.placeholder.com/60" alt="Profile Image" />
+        <h4>Olivia Deny</h4>
+        <p>oliviadeny01@gmail.com</p>
+        <button>Edit Profile</button>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script>
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uploadModal = document.getElementById("uploadModal");
+    const closeModal = document.getElementById("closeModal");
+
+    uploadBtn.addEventListener("click", () => {
+      uploadModal.style.display = "block";
+    });
+
+    closeModal.addEventListener("click", () => {
+      uploadModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target == uploadModal) {
+        uploadModal.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
