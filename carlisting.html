@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Available Cars - RREENNTTACAR</title>
   <link rel="stylesheet" href="CSS/carlisting.css" />
 </head>
@@ -42,7 +42,7 @@
   </section>
 
   <section class="filter-bar">
-    <div class="filter-group">
+     <div class="filter-group">
       <label for="car-type">Type</label>
       <select id="car-type">
         <option>All</option>
@@ -69,10 +69,10 @@
         <input type="range" id="min-price" min="0" max="120000" step="1000" value="4000" class="price-slider-input" />
         <input type="range" id="max-price" min="0" max="120000" step="1000" value="100000" class="price-slider-input" />
         <div class="price-values">
-          <span id="min-price-value">Php 4,000</span> - 
+          <span id="min-price-value">Php 4,000</span> -
           <span id="max-price-value">Php 100,000</span>
         </div>
-      </div>    
+      </div>
     </div>
     <div class="filter-group">
       <label for="availability">Availability</label>
@@ -106,11 +106,9 @@
         <option>CALABARZON</option>
       </select>
     </div>
-
     <div class="search-button">
       <button class="s-btn" id="reset-btn" style="margin-bottom: 10px;">Reset</button>
-      <button class="s-btn">Search</button>
-    </div>   
+    </div>
   </section>
 
   <section class="car-listings"></section>
@@ -123,164 +121,106 @@
     </div>
   </footer>
 
-  <script>
-    const resetBtn = document.getElementById('reset-btn');
+<script>
+  const minPrice = document.getElementById('min-price');
+  const maxPrice = document.getElementById('max-price');
 
-    function resetFilters() {
-      document.getElementById('car-type').value = "All";
-      document.getElementById('seats').value = "Any";
-      document.getElementById('availability').value = "All";
-      document.getElementById('fuel').value = "All";
-      document.getElementById('location').value = "All";
+  const carListings = document.querySelector('.car-listings');
+  const cars = [
+    { name: "Toyota Vios", type: "Economy", seats: 4, price: 4000, availability: ["1 week", "2 weeks", "3 weeks", "1 month"], fuel: "Petrol", location: "Metro Manila", image: "IMAGES/toyota-vios.png" },
+    { name: "Honda Mobilio", type: "Economy", seats: 6, price: 10000, availability: ["1 week", "2 weeks", "3 weeks"], fuel: "Gasoline", location: "CALABARZON", image: "IMAGES/honda-mobilio.png" },
+    { name: "Suzuki Ertiga", type: "Economy", seats: 6, price: 16000, availability: ["1 week"], fuel: "Xtra Advance", location: "South Luzon", image: "IMAGES/suzuki-ertiga.jpg" },
+    { name: "Mercedes-Benz C-Class Coupe", type: "Luxury", seats: 4, price: 25000, availability: ["2 weeks", "1 month"], fuel: "Petrol", location: "Mindanao", image: "IMAGES/mercedes-benz.jpg" },
+    { name: "BMW 5 Series", type: "Luxury", seats: 4, price: 10000, availability: ["2 weeks", "3 weeks"], fuel: "Petrol", location: "South Luzon", image: "IMAGES/bmw-5-series.jpg" },
+    { name: "Audi A6 Sedan", type: "Luxury", seats: 4, price: 40000, availability: ["1 week", "2 weeks", "3 weeks", "1 month"], fuel: "Xtra Advance", location: "Metro Manila", image: "IMAGES/audi-a6.jpg" },
+    { name: "Toyota Fortuner", type: "SUVs", seats: 7, price: 10000, availability: ["1 week", "2 weeks", "1 month"], fuel: "Petrol", location: "North Luzon", image: "IMAGES/toyota-fortuner.jpg" },
+    { name: "Ford Everest", type: "SUVs", seats: 8, price: 25000, availability: ["3 weeks"], fuel: "Gasoline", location: "North Luzon", image: "IMAGES/ford-everest.jpg" },
+    { name: "Nissan Terra", type: "SUVs", seats: 6, price: 6000, availability: ["3 weeks", "1 month"], fuel: "Xtra Advance", location: "Mindanao", image: "IMAGES/nissan-terra.jpg" },
+    { name: "Tesla Model 3", type: "Electric Vehicles", seats: 4, price: 60000, availability: ["1 week", "2 weeks", "3 weeks"], fuel: "Battery (Electric)", location: "Visayas", image: "IMAGES/tesla-model-3.jpg" },
+    { name: "Hyundai Ioniq 5", type: "Electric Vehicles", seats: 5, price: 100000, availability: ["1 month"], fuel: "Battery (Electric)", location: "Metro Manila", image: "IMAGES/hyundai-ioniq-5.jpg" },
+    { name: "Kia EV6", type: "Electric Vehicles", seats: 6, price: 30000, availability: ["2 weeks", "3 weeks"], fuel: "Battery (Electric)", location: "South Luzon", image: "IMAGES/kia-ev6.jpg" }
+  ];
 
-      minPrice.value = 4000;
-      maxPrice.value = 100000;
-      updatePriceDisplay();
-      filterCars();
-    }
+  function renderCars(carArray) {
+    carListings.innerHTML = '';
+    carArray.forEach(car => {
+      const carCard = document.createElement('div');
+      carCard.classList.add('car-card');
+      carCard.innerHTML = `
+        <img src="${car.image}" alt="${car.name}" class="car-img" />
+        <div class="car-info">
+          <h3>${car.name}</h3>
+          <p><strong>Type:</strong> ${car.type}</p>
+          <p><strong>Seats:</strong> ${car.seats}</p>
+          <p><strong>Price:</strong> Php ${car.price.toLocaleString()}</p>
+          <p><strong>Fuel:</strong> ${car.fuel}</p>
+          <p><strong>Location:</strong> ${car.location}</p>
+          <p><strong>Availability:</strong> ${car.availability.join(', ')}</p>
+          <div class="card-footer">
+            <button class="book-btn" data-car='${JSON.stringify(car)}'>Book</button>
+          </div>
+        </div>
+      `;
+      carListings.appendChild(carCard);
+    });
 
-    resetBtn.addEventListener('click', resetFilters);
-
-    const cars = [
-      { name: "Toyota Vios", type: "Economy", seats: 4, price: 4000, availability: ["1 week", "2 weeks", "3 weeks", "1 month"], fuel: "Petrol", location: "Metro Manila", image: "IMAGES/toyota-vios.png" },
-      { name: "Honda Mobilio", type: "Economy", seats: 6, price: 10000, availability: ["1 week", "2 weeks", "3 weeks"], fuel: "Gasoline", location: "CALABARZON", image: "IMAGES/honda-mobilio.png" },
-      { name: "Suzuki Ertiga", type: "Economy", seats: 6, price: 16000, availability: ["1 week"], fuel: "Xtra Advance", location: "South Luzon", image: "IMAGES/suzuki-ertiga.jpg" },
-      { name: "Mercedes-Benz C-Class Coupe", type: "Luxury", seats: 4, price: 25000, availability: ["2 weeks", "1 month"], fuel: "Petrol", location: "Mindanao", image: "IMAGES/mercedes-benz.jpg" },
-      { name: "BMW 5 Series", type: "Luxury", seats: 4, price: 10000, availability: ["2 weeks", "3 weeks"], fuel: "Petrol", location: "South Luzon", image: "IMAGES/bmw-5-series.jpg" },
-      { name: "Audi A6 Sedan", type: "Luxury", seats: 4, price: 40000, availability: ["1 week", "2 weeks", "3 weeks", "1 month"], fuel: "Xtra Advance", location: "Metro Manila", image: "IMAGES/audi-a6.jpg" },
-      { name: "Toyota Fortuner", type: "SUVs", seats: 7, price: 10000, availability: ["1 week", "2 weeks", "1 month"], fuel: "Petrol", location: "North Luzon", image: "IMAGES/toyota-fortuner.jpg" },
-      { name: "Ford Everest", type: "SUVs", seats: 8, price: 25000, availability: ["3 weeks"], fuel: "Gasoline", location: "North Luzon", image: "IMAGES/ford-everest.jpg" },
-      { name: "Nissan Terra", type: "SUVs", seats: 6, price: 6000, availability: ["3 weeks", "1 month"], fuel: "Xtra Advance", location: "Mindanao", image: "IMAGES/nissan-terra.jpg" },
-      { name: "Tesla Model 3", type: "Electric Vehicles", seats: 4, price: 60000, availability: ["1 week", "2 weeks", "3 weeks"], fuel: "Battery (Electric)", location: "Visayas", image: "IMAGES/tesla-model-3.jpg" },
-      { name: "Hyundai Ioniq 5", type: "Electric Vehicles", seats: 5, price: 100000, availability: ["1 month"], fuel: "Battery (Electric)", location: "Metro Manila", image: "IMAGES/hyundai-ioniq-5.jpg" },
-      { name: "Kia EV6", type: "Electric Vehicles", seats: 6, price: 30000, availability: ["2 weeks", "3 weeks"], fuel: "Battery (Electric)", location: "South Luzon", image: "IMAGES/kia-ev6.jpg" }
-    ];
-
-    const minPrice = document.getElementById("min-price");
-    const maxPrice = document.getElementById("max-price");
-    const minPriceValue = document.getElementById("min-price-value");
-    const maxPriceValue = document.getElementById("max-price-value");
-    const searchBtn = document.querySelector('.search-button button:last-child');
-    const carListings = document.querySelector('.car-listings');
-
-    function updatePriceDisplay() {
-      let minVal = parseInt(minPrice.value);
-      let maxVal = parseInt(maxPrice.value);
-
-      if (minVal > maxVal) {
-        [minPrice.value, maxPrice.value] = [maxPrice.value, minPrice.value];
-        [minVal, maxVal] = [maxVal, minVal];
-      }
-
-      minPriceValue.textContent = `Php ${minVal.toLocaleString()}`;
-      maxPriceValue.textContent = `Php ${maxVal.toLocaleString()}`;
-    }
-
-    function filterCars() {
-      const selectedType = document.getElementById('car-type').value;
-      const selectedSeats = document.getElementById('seats').value;
-      const minSelectedPrice = parseInt(minPrice.value);
-      const maxSelectedPrice = parseInt(maxPrice.value);
-      const selectedAvailability = document.getElementById('availability').value;
-      const selectedFuel = document.getElementById('fuel').value;
-      const selectedLocation = document.getElementById('location').value;
-
-      const filtered = cars.filter(car => {
-        return (selectedType === "All" || car.type === selectedType) &&
-               (selectedSeats === "Any" || (selectedSeats === "6+" ? car.seats >= 6 : car.seats == selectedSeats)) &&
-               (car.price >= minSelectedPrice && car.price <= maxSelectedPrice) &&
-               (selectedAvailability === "All" || car.availability.includes(selectedAvailability)) &&
-               (selectedFuel === "All" || car.fuel === selectedFuel) &&
-               (selectedLocation === "All" || car.location === selectedLocation);
+    document.querySelectorAll('.book-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const selectedCar = JSON.parse(this.getAttribute('data-car'));
+        localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
+        window.location.href = 'booking.html';
       });
+    });
+  }
 
-      carListings.innerHTML = filtered.length ? filtered.map(car => `
-        <div class="car-card" onclick='selectCar(${JSON.stringify(car)})'>
-  <img src="${car.image}" alt="${car.name}">
-  <div class="car-info">
-    <h3>${car.name}</h3>
-    <p>Seats: ${car.seats} • Fuel: ${car.fuel} • Type: ${car.type}</p>
-    <p class="price">Php ${car.price.toLocaleString()} / 24h</p>
-  </div>
-</div>
-      `).join('') : `<p style="padding:20px; font-size:1.2rem;">No cars found matching your criteria.</p>`;
-    }
 
-    minPrice.addEventListener("input", updatePriceDisplay);
-    maxPrice.addEventListener("input", updatePriceDisplay);
-    searchBtn.addEventListener('click', filterCars);
+  renderCars(cars);
 
-    updatePriceDisplay();
-    filterCars();
-  </script>
+  document.getElementById('car-type').addEventListener('change', filterCars);
+  document.getElementById('seats').addEventListener('change', filterCars);
+  document.getElementById('min-price').addEventListener('input', filterCars);
+  document.getElementById('max-price').addEventListener('input', filterCars);
+  document.getElementById('availability').addEventListener('change', filterCars);
+  document.getElementById('fuel').addEventListener('change', filterCars);
+  document.getElementById('location').addEventListener('change', filterCars);
 
-  <script>
-  function saveBookingDetails() {
-    const carModel = document.getElementById("carModel").value;
-    const rentalDuration = document.getElementById("rentalDuration").value;
-    const branch = document.getElementById("branch").value;
-    const delivery = document.getElementById("delivery").value;
-    const returnLocation = document.getElementById("return").value;
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    document.getElementById('car-type').value = 'All';
+    document.getElementById('seats').value = 'Any';
+    document.getElementById('min-price').value = 4000;
+    document.getElementById('max-price').value = 100000;
+    document.getElementById('availability').value = 'All';
+    document.getElementById('fuel').value = 'All';
+    document.getElementById('location').value = 'All';
 
-    const bookingInfo = {
-      carModel,
-      rentalDuration,
-      branch,
-      delivery,
-      returnLocation,
-      startDate,
-      endDate
-    };
+    document.getElementById('min-price-value').textContent = 'Php 4,000';
+    document.getElementById('max-price-value').textContent = 'Php 100,000';
+    renderCars(cars);
+  });
 
-    localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
-    window.location.href = "booking.html";
+  function filterCars() {
+    const selectedType = document.getElementById('car-type').value;
+    const selectedSeats = document.getElementById('seats').value;
+    const min = parseInt(document.getElementById('min-price').value);
+    const max = parseInt(document.getElementById('max-price').value);
+    const selectedAvailability = document.getElementById('availability').value;
+    const selectedFuel = document.getElementById('fuel').value;
+    const selectedLocation = document.getElementById('location').value;
+
+    document.getElementById('min-price-value').textContent = `Php ${min.toLocaleString()}`;
+    document.getElementById('max-price-value').textContent = `Php ${max.toLocaleString()}`;
+
+    const filteredCars = cars.filter(car => {
+      return (selectedType === "All" || car.type === selectedType) &&
+             (selectedSeats === "Any" || car.seats.toString() === selectedSeats || (selectedSeats === "6+" && car.seats >= 6)) &&
+             (car.price >= min && car.price <= max) &&
+             (selectedAvailability === "All" || car.availability.includes(selectedAvailability)) &&
+             (selectedFuel === "All" || car.fuel === selectedFuel) &&
+             (selectedLocation === "All" || car.location === selectedLocation);
+    });
+
+    renderCars(filteredCars);
   }
 </script>
-
-<script>
-function saveBookingDetails() {
-const carModel = document.getElementById("carModel").value;
-const rentalDuration = document.getElementById("rentalDuration").value;
-const branch = document.getElementById("branch").value;
-const delivery = document.getElementById("delivery").value;
-const returnLocation = document.getElementById("return").value;
-const startDate = document.getElementById("startDate").value;
-const endDate = document.getElementById("endDate").value;
-const bookingInfo = {
-carModel,
-rentalDuration,
-branch,
-delivery,
-returnLocation,
-startDate,
-endDate
-};
-localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
-window.location.href = "booking.html";
-}
-function selectCar(carData) {
-try {
-const car = JSON.parse(decodeURIComponent(carData));
-const selectedCar = {
-model: car.name,
-image: car.image,
-year: "2024",
-transmission: "Automatic",
-rate: car.price,
-
-type: car.type,
-fuel: car.fuel,
-seats: car.seats
-};
-localStorage.setItem("selectedCar", JSON.stringify(selectedCar));
-window.location.href = "booking.html";
-} catch (error) {
-console.error("Error selecting car:", error);
-}
-}
-</script>
-  
 </body>
 </html>
