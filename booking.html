@@ -195,7 +195,6 @@
         <li><strong>Return Date:</strong> Please return the car <b>the day after</b> your rental end date. (e.g., Rental ends 31/05/2025 → Return on 01/06/2025)</li>
         <li><strong>Time:</strong> Delivery and return times are <b>flexible</b>. We're available <b>24/7</b> to serve you!</li>
       </ul>
-      <p>For more information, <a href="terms-and-agreement.html" target="_blank">click here</a>.</p>
     </div>
   </div>
 
@@ -532,6 +531,106 @@
     }
 
     window.onload = init;
+  </script>
+  <script> 
+    function calculateDates() {
+  // Get the rental start and end date inputs
+  const rentalStartDate = document.getElementById('rental-start').value;
+  const rentalEndDate = document.getElementById('rental-end').value;
+  
+  // Only proceed if both dates are selected
+  if (rentalStartDate && rentalEndDate) {
+    // Calculate delivery date (1 day before rental start)
+    const startDate = new Date(rentalStartDate);
+    const deliveryDate = new Date(startDate);
+    deliveryDate.setDate(startDate.getDate() - 1);
+    
+    // Calculate return date (1 day after rental end)
+    const endDate = new Date(rentalEndDate);
+    const returnDate = new Date(endDate);
+    returnDate.setDate(endDate.getDate() + 1);
+    
+    // Format dates in DD/MM/YYYY format
+    const formatDate = (date) => {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    };
+    
+    // Create delivery and return date fields if they don't exist
+    let deliveryDateField = document.getElementById('delivery-date');
+    let returnDateField = document.getElementById('return-date');
+    
+    if (!deliveryDateField) {
+      createDateField('delivery-date', 'Delivery Date', formatDate(deliveryDate));
+    } else {
+      deliveryDateField.value = formatDate(deliveryDate);
+    }
+    
+    if (!returnDateField) {
+      createDateField('return-date', 'Return Date', formatDate(returnDate));
+    } else {
+      returnDateField.value = formatDate(returnDate);
+    }
+    
+    // Store the calculated dates as hidden inputs for form submission
+    updateOrCreateHiddenField('delivery-date-hidden', formatDate(deliveryDate));
+    updateOrCreateHiddenField('return-date-hidden', formatDate(returnDate));
+  }
+}
+
+// Helper function to create date display fields
+function createDateField(id, labelText, dateValue) {
+  const rentalEndGroup = document.getElementById('rental-end').closest('.input-group');
+  
+  const newGroup = document.createElement('div');
+  newGroup.className = 'input-group';
+  
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.id = id;
+  input.value = dateValue;
+  input.readOnly = true;
+  
+  const label = document.createElement('label');
+  label.htmlFor = id;
+  label.textContent = labelText;
+  
+  newGroup.appendChild(input);
+  newGroup.appendChild(label);
+  
+  rentalEndGroup.parentNode.insertBefore(newGroup, rentalEndGroup.nextSibling);
+  
+  return input;
+}
+
+// Helper function to update or create hidden fields
+function updateOrCreateHiddenField(id, value) {
+  let hiddenField = document.getElementById(id);
+  if (!hiddenField) {
+    hiddenField = document.createElement('input');
+    hiddenField.type = 'hidden';
+    hiddenField.id = id;
+    hiddenField.name = id.replace('-hidden', '');
+    document.getElementById('rental-end').closest('form').appendChild(hiddenField);
+  }
+  hiddenField.value = value;
+}
+
+// Event listeners for the rental date fields
+document.addEventListener('DOMContentLoaded', function() {
+  const startDateField = document.getElementById('rental-start');
+  const endDateField = document.getElementById('rental-end');
+  
+  if (startDateField && endDateField) {
+    startDateField.addEventListener('change', calculateDates);
+    endDateField.addEventListener('change', calculateDates);
+    
+    // Initial calculation in case dates are pre-filled
+    calculateDates();
+  }
+});
   </script>
 </body>
 </html>
