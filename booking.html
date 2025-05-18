@@ -36,15 +36,21 @@
       <div class="booking-bar">
         <div class="booking-grid">
           <div class="input-group">
-            <input type="date" id="rental-start" name="rental-start-date" required>
+            <input type="date" id="rental-start" name="rental-start-date" required />
             <label for="rental-start">Rental Start Date</label>
           </div>
           <div class="input-group">
-            <input type="date" id="rental-end" name="rental-end-date" required>
+            <input type="date" id="rental-end" name="rental-end-date" required />
             <label for="rental-end">Rental End Date</label>
           </div>
           <div class="input-group">
-            <input type="text" id="rental-duration-display" name="rental-duration"  placeholder="7 - 31 days only">
+            <input
+              type="text"
+              id="rental-duration-display"
+              name="rental-duration"
+              placeholder="7 - 31 days only"
+              readonly
+            />
             <label for="rental-duration-display">Rental Duration (days)</label>
           </div>
           <div class="input-group">
@@ -54,583 +60,483 @@
               <option>Las Pinas City Branch</option>
               <option>Makati City Branch</option>
               <option>Malabon City Branch</option>
-                  <option>Mandaluyong City Branch</option>
-                  <option>Marikina City Branch</option>
-                  <option>Manila City Branch</option>
-                  <option>Muntinlupa City Branch</option>
-                  <option>Navotas City Branch</option>
-                  <option>Paranaque City Branch</option>
-                  <option>Pasay City Branch</option>
-                  <option>Pasig City Branch</option>
-                  <option>Quezon City Branch</option>
-                  <option>San Juan City Branch</option>
-                  <option>Taguig City Branch</option>
-                  <option>Valenzuela City Branch</option>
-                  <option>Municipality of Pateros Branch</option>
-                  <option>Cavite Branch</option>
-                  <option>Laguna Branch</option>
-                  <option>Batangas Branch</option>
-                  <option>Rizal Branch</option>
-                  <option>Quezon Province Branch</option>
+              <option>Mandaluyong City Branch</option>
+              <option>Marikina City Branch</option>
+              <option>Manila City Branch</option>
+              <option>Muntinlupa City Branch</option>
+              <option>Navotas City Branch</option>
+              <option>Paranaque City Branch</option>
+              <option>Pasay City Branch</option>
+              <option>Pasig City Branch</option>
+              <option>Quezon City Branch</option>
+              <option>San Juan City Branch</option>
+              <option>Taguig City Branch</option>
+              <option>Valenzuela City Branch</option>
+              <option>Municipality of Pateros Branch</option>
+              <option>Cavite Branch</option>
+              <option>Laguna Branch</option>
+              <option>Batangas Branch</option>
+              <option>Rizal Branch</option>
+              <option>Quezon Province Branch</option>
             </select>
             <label for="return-area">From what branch</label>
           </div>
           <div class="input-group delivery-address">
-              <input type="text" id="delivery-address" name="delivery-address" placeholder="Your delivery address" required>
-              <label for="delivery-address">Car Delivery Address</label>
-            </div>
-
-            
-            <div class="input-group">
-              <input type="date" id="delivery-date" name="delivery-date" required />
-              <label for="delivery-date">Delivery Date</label>
-            </div>
-
-           
-            <div class="input-group">
-              <input type="time" id="delivery-time" name="delivery-time" required />
-              <label for="delivery-time">Delivery Time</label>
-            </div>
-         
-<div class="input-group return-method-wrapper">
-  <div class="return-method-input">
-    <label for="return-method">Return Method</label>
-      <select id="return-method" required>
-              <option value="" disabled selected hidden>----</option>
-              <option value="return-area">Return to Branch</option>
-              <option value="delivery-address">Pick up at same address</option>
-              <option value="return-address">Pick up at different location</option>
-      </select>
-  </div>
-</div>
-
-
-<div class="input-group return-address" style="display: none;">
-  <label for="return-address">Return Address</label>
-  <input type="text" id="return-address" name="return-address" placeholder="Enter return address" />
-</div>
-
-
-<div class="input-group">
-  <input type="date" id="return-date" name="return-date" required />
-  <label for="return-date">Return Date</label>
-</div>
-
-
-<div class="input-group">
-  <input type="time" id="return-time" name="return-time" required />
-  <label for="return-time">Return Time</label>
-</div>
+            <input
+              type="text"
+              id="delivery-address"
+              name="delivery-address"
+              placeholder="Your delivery address"
+              required
+            />
+            <label for="delivery-address">Car Delivery Address</label>
+          </div>
           <div class="input-group">
-            <button type="button" onclick="saveBookingDetails()" id="save-button" class="save-btn">Save</button>
+            <input type="date" id="delivery-date" name="delivery-date" required />
+            <label for="delivery-date">Delivery Date</label>
+          </div>
+
+          <div class="input-group">
+            <input type="time" id="delivery-time" name="delivery-time" required />
+            <label for="delivery-time">Delivery Time</label>
+          </div>
+
+          <div class="input-group return-method-wrapper">
+            <div class="return-method-input">
+              <label for="return-method">Return Method</label>
+              <select id="return-method" required>
+                <option value="" disabled selected hidden>----</option>
+                <option value="return-area">Return to Branch</option>
+                <option value="delivery-address">Pick up at same address</option>
+                <option value="return-address">Pick up at different location</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group return-address" style="display: none;">
+            <label for="return-address">Return Address</label>
+            <input
+              type="text"
+              id="return-address"
+              name="return-address"
+              placeholder="Enter return address"
+            />
+          </div>
+
+          <div class="input-group">
+            <input type="date" id="return-date" name="return-date" required />
+            <label for="return-date">Return Date</label>
+          </div>
+
+
+          <div class="input-group">
+            <input type="time" id="return-time" name="return-time" required />
+            <label for="return-time">Return Time</label>
+          </div>
+          <div class="input-group">
+            <button type="button" onclick="saveBookingDetails()" id="save-button" class="save-btn">
+              Save
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-<section class="booking-sum-container">
-  <div class="booking-summary-container">
-    <div class="summary-flex-container">
+  <section class="booking-sum-container">
+    <div class="booking-summary-container">
+      <div class="summary-flex-container">
+        <!-- Not sure kung mas okay tanggalin na lang tong slider na to at palitan ng single image na lang -->
+        <div class="car-slider" id="car-slider">
+          <button class="prev" onclick="prevSlide()">❮</button>
+          <button class="next" onclick="nextSlide()">❯</button>
+        </div>
 
-     
-      <div class="car-slider">
-        <img src="IMAGES/jeep.png" alt="Car Image 1" class="slider-image active">
-        <img src="IMAGES/bmw-5-series.jpg" alt="Car Image 2" class="slider-image">
-        <img src="IMAGES/ford-everest.jpg" alt="Car Image 3" class="slider-image">
-        <button class="prev" onclick="prevSlide()">❮</button>
-        <button class="next" onclick="nextSlide()">❯</button>
-      </div>
+        <div id="booking-summary">
+          <h2>Booking Summary</h2>
+          <p><strong>Car Model:</strong> <span id="summary-carModel"></span></p>
+          <p><strong>Rental Duration:</strong> <span id="summary-rentalDuration"></span></p>
+          <p><strong>Branch:</strong> <span id="summary-branch"></span></p>
+          <p><strong>Delivery Location:</strong> <span id="summary-delivery"></span></p>
+          <p><strong>Return Location:</strong> <span id="summary-return"></span></p>
+          <p><strong>Start Date:</strong> <span id="summary-startDate"></span></p>
+          <p><strong>End Date:</strong> <span id="summary-endDate"></span></p>
 
-      <div id="booking-summary">
-        <h2>Booking Summary</h2>
-        <p><strong>Car Model:</strong> <span id="summary-carModel"></span></p>
-        <p><strong>Rental Duration:</strong> <span id="summary-rentalDuration"></span></p>
-        <p><strong>Branch:</strong> <span id="summary-branch"></span></p>
-        <p><strong>Delivery Location:</strong> <span id="summary-delivery"></span></p>
-        <p><strong>Return Location:</strong> <span id="summary-return"></span></p>
-        <p><strong>Start Date:</strong> <span id="summary-startDate"></span></p>
-        <p><strong>End Date:</strong> <span id="summary-endDate"></span></p>
-
-        <div class="acknowledgment-section">
-  <label><input type="checkbox" id="agree-terms"> I have read and agreed to the rental terms and privacy policy.</label><br>
-  <label><input type="checkbox" id="agree-contact"> I understand the car owner will contact me for further coordination.</label>
-</div>
-        <div class="booking-actions">
-          <a href="payment.html" class="pay-now-button" id="pay-now-button" onclick="return validateAgreement()">PAY NOW</a>
-          <p class="note">After payment, the car owner will contact you to confirm the rental and finalize pickup details.</p>
+          <div class="acknowledgment-section">
+            <label
+              ><input type="checkbox" id="agree-terms" />
+              I have read and agreed to the rental terms and privacy policy.</label
+            ><br />
+            <label
+              ><input type="checkbox" id="agree-contact" />
+              I understand the car owner will contact me for further coordination.</label
+            >
+          </div>
+          <div class="booking-actions">
+            <a
+              href="payment.html"
+              class="pay-now-button"
+              id="pay-now-button"
+              onclick="return validateAgreement()"
+              >PAY NOW</a
+            >
+            <p class="note">
+              After payment, the car owner will contact you to confirm the rental and finalize pickup
+              details.
+            </p>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
+  
+  <div id="rental-terms-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Heads Up!</h2>
+      <ul>
+        <li><strong>Delivery Date:</strong> We deliver your booked car <b>one day before</b> your rental start date. (e.g., Booked for 15/05/2025 → Delivered on 14/05/2025)</li>
+        <li><strong>Return Date:</strong> Please return the car <b>the day after</b> your rental end date. (e.g., Rental ends 31/05/2025 → Return on 01/06/2025)</li>
+        <li><strong>Time:</strong> Delivery and return times are <b>flexible</b>. We're available <b>24/7</b> to serve you!</li>
+      </ul>
+      <p>For more information, <a href="terms-and-agreement.html" target="_blank">click here</a>.</p>
     </div>
   </div>
-</section>
 
   <footer>
     <p>&copy; 2025 RREENNTTACAR. All rights reserved.</p>
   </footer>
 
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const returnMethodSelect = document.getElementById("return-method");
-  const returnAreaSelect = document.getElementById("return-area");
-  const deliveryAddress = document.getElementById("delivery-address");
-  const returnAddressGroup = document.querySelector(".return-address");
-  const returnAddressInput = document.getElementById("return-address");
-  const debugDisplay = document.getElementById("debug-display"); 
-
-  returnMethodSelect.addEventListener("change", function () {
-    const selectedValue = this.value;
-
-    if (selectedValue === "return-area") {
-      returnAddressGroup.style.display = "none";
-      returnAddressInput.value = returnAreaSelect.value;
-      console.log("Return address set to branch:", returnAddressInput.value);
-      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
-
-    } else if (selectedValue === "delivery-address") {
-      returnAddressGroup.style.display = "none";
-      returnAddressInput.value = deliveryAddress.value;
-      console.log("Return address set to delivery address:", returnAddressInput.value);
-      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
-
-    } else if (selectedValue === "return-address") {
-      returnAddressGroup.style.display = "block";
-      returnAddressInput.value = "";
-      console.log("Return address field is now editable.");
-      debugDisplay.textContent = "Please enter a return address.";
-    }
-  });
-
-  returnAreaSelect.addEventListener("change", () => {
-    if (returnMethodSelect.value === "return-area") {
-      returnAddressInput.value = returnAreaSelect.value;
-      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
-    }
-  });
-
-  deliveryAddress.addEventListener("input", () => {
-    if (returnMethodSelect.value === "delivery-address") {
-      returnAddressInput.value = deliveryAddress.value;
-      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
-    }
-  });
-});
-</script>
-
-<script>
   document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("rental-terms-modal");
+    const modalContent = modal.querySelector(".modal-content");
+    const closeBtn = document.querySelector(".close-button");
 
-  const saveBtn = document.getElementById("save-button");
+    
+    function openModal() {
+      modal.style.display = "block";
+      
+      
+      modalContent.style.animation = "none";
+      void modalContent.offsetWidth; 
+      modalContent.style.animation = "slideUp 0.4s ease forwards";
+    }
 
+    
+    function closeModal() {
+      modal.style.display = "none";
+    }
 
-  const fields = [
-    "rental-start",
-    "rental-end",
-    "rental-duration-display",
-    "return-area",
-    "delivery-address",
-    "delivery-date",
-    "delivery-time",
-    "return-method",
-    "return-address",
-    "return-date",
-    "return-time"
-  ];
-
-
-  function saveFormData() {
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        localStorage.setItem(id, el.value);
-      }
-    });
-    alert("Booking information saved!");
-  }
-
- 
-  function loadFormData() {
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const savedValue = localStorage.getItem(id);
-        if (savedValue) {
-          el.value = savedValue;
-         
-          if (el.tagName.toLowerCase() === "select") {
-            el.dispatchEvent(new Event("change"));
-          }
-        }
-      }
-    });
-  }
+    
+    openModal();
 
   
-  saveBtn.addEventListener("click", saveFormData);
+    closeBtn.addEventListener("click", closeModal);
 
-  
-  loadFormData();
 
- 
-  const returnMethodSelect = document.getElementById("return-method");
-  const returnAreaSelect = document.getElementById("return-area");
-  const deliveryAddress = document.getElementById("delivery-address");
-  const returnAddressGroup = document.querySelector(".return-address");
-  const returnAddressInput = document.getElementById("return-address");
-
-  returnMethodSelect.addEventListener("change", function () {
-    const selectedValue = this.value;
-
-    if (selectedValue === "return-area") {
-      returnAddressGroup.style.display = "none";
-      returnAddressInput.value = returnAreaSelect.value;
-    } else if (selectedValue === "delivery-address") {
-      returnAddressGroup.style.display = "none";
-      returnAddressInput.value = deliveryAddress.value;
-    } else if (selectedValue === "return-address") {
-      returnAddressGroup.style.display = "block";
-      returnAddressInput.value = "";
-    }
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
   });
+  </script>
 
-  returnAreaSelect.addEventListener("change", () => {
-    if (returnMethodSelect.value === "return-area") {
-      returnAddressInput.value = returnAreaSelect.value;
-    }
-  });
+  <script>
+    const returnMethodSelect = document.getElementById("return-method");
+    const returnAreaSelect = document.getElementById("return-area");
+    const deliveryAddress = document.getElementById("delivery-address");
+    const returnAddressGroup = document.querySelector(".return-address");
+    const returnAddressInput = document.getElementById("return-address");
 
-  deliveryAddress.addEventListener("input", () => {
-    if (returnMethodSelect.value === "delivery-address") {
-      returnAddressInput.value = deliveryAddress.value;
-    }
-  });
-});
+    const rentalStart = document.getElementById("rental-start");
+    const rentalEnd = document.getElementById("rental-end");
+    const rentalDurationDisplay = document.getElementById("rental-duration-display");
 
-</script>
+    const summaryCarModel = document.getElementById("summary-carModel");
+    const summaryRentalDuration = document.getElementById("summary-rentalDuration");
+    const summaryBranch = document.getElementById("summary-branch");
+    const summaryDelivery = document.getElementById("summary-delivery");
+    const summaryReturn = document.getElementById("summary-return");
+    const summaryStartDate = document.getElementById("summary-startDate");
+    const summaryEndDate = document.getElementById("summary-endDate");
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-  const rentalStartInput = document.getElementById("rental-start");
-  const rentalEndInput = document.getElementById("rental-end");
-  const rentalDurationDisplay = document.getElementById("rental-duration-display");
-  const deliveryDateInput = document.getElementById("delivery-date");
-  const returnDateInput = document.getElementById("return-date");
+    // Ito ulittt. Tanngalin na lang ba to???
+    let sliderIndex = 0;
+    let sliderImages = [];
 
-  function updateRentalDetails() {
-    const startDate = new Date(rentalStartInput.value);
-    const endDate = new Date(rentalEndInput.value);
-
-    if (rentalStartInput.value && rentalEndInput.value) {
-      const durationInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-
-      if (durationInDays < 7 || durationInDays > 31) {
-        alert("❌ Invalid rental duration.\n\nOur car rentals are only available for:\n• 1 week (7 days)\n• 2 weeks (14 days)\n• 3 weeks (21 days)\n• 1 month (31 days)\n\nPlease select a valid duration.");
-        rentalStartInput.value = "";
-        rentalEndInput.value = "";
-        rentalDurationDisplay.value = "";
-        deliveryDateInput.value = "";
-        returnDateInput.value = "";
+    function loadCarDetails() {
+      const carDataJSON = localStorage.getItem("selectedCar");
+      if (!carDataJSON) {
+        alert("No car selected. Redirecting to car listing page.");
+        window.location.href = "carlisting.html";
         return;
       }
+      const carData = JSON.parse(carDataJSON);
 
-      rentalDurationDisplay.value = `${durationInDays} days`;
+      summaryCarModel.textContent = carData.name || carData.model || "N/A";
 
-     
-      const deliveryDate = new Date(startDate);
-      deliveryDate.setDate(deliveryDate.getDate() - 1);
-      deliveryDateInput.value = deliveryDate.toISOString().split("T")[0];
+      // Hmmm??? Di na kasi keri ng mata ko kaya di ko na pinagtiyagaan i-figure out
+      sliderImages = carData.images || [carData.image];
+      if (!Array.isArray(sliderImages)) sliderImages = [sliderImages];
 
-    
-      const returnDate = new Date(endDate);
-      returnDate.setDate(returnDate.getDate() + 1);
-      returnDateInput.value = returnDate.toISOString().split("T")[0];
+      setupSliderImages();
     }
-  }
 
-  rentalStartInput.addEventListener("change", updateRentalDetails);
-  rentalEndInput.addEventListener("change", updateRentalDetails);
-});
-</script>
+    function setupSliderImages() {
+      const sliderContainer = document.getElementById("car-slider");
+      [...sliderContainer.querySelectorAll("img")].forEach((img) => img.remove());
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById("rental-terms-modal");
-  const modalContent = modal.querySelector(".modal-content");
-  const closeBtn = document.querySelector(".close-button");
-
-  
-  function openModal() {
-    modal.style.display = "block";
-    
-    
-    modalContent.style.animation = "none";
-    void modalContent.offsetWidth; 
-    modalContent.style.animation = "slideUp 0.4s ease forwards";
-  }
-
-  
-  function closeModal() {
-    modal.style.display = "none";
-  }
-
-  
-  openModal();
-
- 
-  closeBtn.addEventListener("click", closeModal);
-
-
-  window.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  
-  const inputs = document.querySelectorAll('.booking-bar-overlay input, .booking-bar-overlay select');
-
-  inputs.forEach(input => {
-    if (input.tagName.toLowerCase() === 'select') {
-      input.selectedIndex = 0; 
-    } else if (input.type === 'checkbox' || input.type === 'radio') {
-      input.checked = false;    
-    } else {
-      input.value = '';         
-    }
-  });
-});
-</script>
-
-
-<div id="rental-terms-modal" class="modal">
-  <div class="modal-content">
-    <span class="close-button">&times;</span>
-    <h2>Heads Up!</h2>
-    <ul>
-      <li><strong>Delivery Date:</strong> We deliver your booked car <b>one day before</b> your rental start date. (e.g., Booked for 15/05/2025 → Delivered on 14/05/2025)</li>
-      <li><strong>Return Date:</strong> Please return the car <b>the day after</b> your rental end date. (e.g., Rental ends 31/05/2025 → Return on 01/06/2025)</li>
-      <li><strong>Time:</strong> Delivery and return times are <b>flexible</b>. We're available <b>24/7</b> to serve you!</li>
-    </ul>
-    <p>For more information, <a href="terms-and-agreement.html" target="_blank">click here</a>.</p>
-  </div>
-</div>
-
-<script>
-  function saveBookingDetails() {
-    const startDate = document.getElementById("rental-start").value;
-    const endDate = document.getElementById("rental-end").value;
-    const rentalDuration = document.getElementById("rental-duration-display").value;
-    const branch = document.getElementById("return-area").value;
-    const delivery = document.getElementById("delivery-address").value;
-    const returnMethod = document.getElementById("return-method").value;
-    const returnLocation = returnMethod === "return-address"
-      ? document.getElementById("return-address").value
-      : (returnMethod === "return-area"
-          ? branch
-          : delivery);
-
-    
-    const bookingInfo = {
-      rentalDuration: rentalDuration,
-      branch: branch,
-      delivery: delivery,
-      returnLocation: returnLocation,
-      startDate: startDate,
-      endDate: endDate
-    };
-
-   
-    localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
-
-    
-    document.getElementById("summary-rentalDuration").textContent = rentalDuration;
-    document.getElementById("summary-branch").textContent = branch;
-    document.getElementById("summary-delivery").textContent = delivery;
-    document.getElementById("summary-return").textContent = returnLocation;
-    document.getElementById("summary-startDate").textContent = startDate;
-    document.getElementById("summary-endDate").textContent = endDate;
-  }
-
- 
-  window.addEventListener("DOMContentLoaded", () => {
-    const bookingInfo = JSON.parse(localStorage.getItem("bookingInfo"));
-    if (bookingInfo) {
-      document.getElementById("summary-rentalDuration").textContent = bookingInfo.rentalDuration;
-      document.getElementById("summary-branch").textContent = bookingInfo.branch;
-      document.getElementById("summary-delivery").textContent = bookingInfo.delivery;
-      document.getElementById("summary-return").textContent = bookingInfo.returnLocation;
-      document.getElementById("summary-startDate").textContent = bookingInfo.startDate;
-      document.getElementById("summary-endDate").textContent = bookingInfo.endDate;
-    }
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".slider-image");
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
+      sliderImages.forEach((imgSrc, idx) => {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = "Car Image " + (idx + 1);
+        img.classList.add("slide-image");
+        if (idx !== sliderIndex) img.style.display = "none";
+        sliderContainer.insertBefore(img, sliderContainer.querySelector(".prev"));
       });
     }
 
-    window.nextSlide = function () {
-      slideIndex = (slideIndex + 1) % slides.length;
-      showSlide(slideIndex);
-    };
-
-    window.prevSlide = function () {
-      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-      showSlide(slideIndex);
-    };
-
-   
-    setInterval(() => {
-      slideIndex = (slideIndex + 1) % slides.length;
-      showSlide(slideIndex);
-    }, 4000);
-
-    
-    showSlide(slideIndex);
-  });
-</script>
-<script>
-  window.onload = function () {
-    const checkbox1 = document.getElementById('checkbox1');
-    const checkbox2 = document.getElementById('checkbox2');
-    const payNowButton = document.getElementById('pay-now-button');
-
-  
-    function clearBookingSummary() {
-      document.getElementById('summary-carModel').textContent = '';
-      document.getElementById('summary-rentalDuration').textContent = '';
-      document.getElementById('summary-branch').textContent = '';
-      document.getElementById('summary-delivery').textContent = '';
-      document.getElementById('summary-return').textContent = '';
-      document.getElementById('summary-startDate').textContent = '';
-      document.getElementById('summary-endDate').textContent = '';
+    function prevSlide() {
+      sliderIndex = (sliderIndex - 1 + sliderImages.length) % sliderImages.length;
+      updateSlider();
     }
 
-    
-    clearBookingSummary();
+    function nextSlide() {
+      sliderIndex = (sliderIndex + 1) % sliderImages.length;
+      updateSlider();
+    }
 
+    function updateSlider() {
+      const images = document.querySelectorAll("#car-slider img.slide-image");
+      images.forEach((img, idx) => {
+        img.style.display = idx === sliderIndex ? "block" : "none";
+      });
+    }
+
+    function saveBookingDetails() {
+      if (!rentalStart.value || !rentalEnd.value) {
+        alert("Please select rental start and end dates.");
+        return;
+      }
+
+
+      const startDate = new Date(rentalStart.value);
+      const endDate = new Date(rentalEnd.value);
+      const diffTime = endDate - startDate;
+      const rentalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
     
-    function updateButtonState() {
-      if (checkbox1.checked && checkbox2.checked) {
-        payNowButton.classList.remove('disabled');
-        payNowButton.style.pointerEvents = 'auto';
-        payNowButton.style.opacity = '1';
-      } else {
-        payNowButton.classList.add('disabled');
-        payNowButton.style.pointerEvents = 'none';
-        payNowButton.style.opacity = '0.5';
+      if (rentalDays < 7 || rentalDays > 31) {
+        alert("Rental duration must be between 7 and 31 days.");
+        return;
+      }
+
+      const agreeTerms = document.getElementById("agree-terms").checked;
+      const agreeContact = document.getElementById("agree-contact").checked;
+      if (!agreeTerms || !agreeContact) {
+        alert("Please agree to the terms and privacy policy, and acknowledge contact terms.");
+        return;
+      }
+    
+      const selectedCar = JSON.parse(localStorage.getItem("selectedCar"));
+      if (!selectedCar) {
+        alert("No car selected. Please select a car first.");
+        window.location.href = "carlisting.html";
+        return;
+      }
+    
+      const bookingDetails = {
+        ...selectedCar,
+        rentalStartDate: rentalStart.value,
+        rentalEndDate: rentalEnd.value,
+        rentalDays: rentalDays,
+        branch: returnAreaSelect.value,
+        deliveryAddress: deliveryAddress.value,
+        deliveryDate: document.getElementById("delivery-date").value,
+        deliveryTime: document.getElementById("delivery-time").value,
+        returnMethod: returnMethodSelect.value,
+        returnAddress: returnAddressInput.value || "",
+        returnDate: document.getElementById("return-date").value,
+        returnTime: document.getElementById("return-time").value,
+        deliveryFee: 500,
+      };
+
+      localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
+
+      window.location.href = "payment.html";
+    }
+
+    function calculateRentalDuration() {
+      if (rentalStart.value && rentalEnd.value) {
+        const start = new Date(rentalStart.value);
+        const end = new Date(rentalEnd.value);
+        const diffTime = end.getTime() - start.getTime();
+        const diffDays = diffTime / (1000 * 3600 * 24) + 1;
+        if (diffDays >= 7 && diffDays <= 31) {
+          rentalDurationDisplay.value = diffDays;
+        } else {
+          rentalDurationDisplay.value = "";
+        }
+        updateSummaryDatesAndDuration();
       }
     }
 
-    checkbox1.addEventListener('change', updateButtonState);
-    checkbox2.addEventListener('change', updateButtonState);
+    function updateSummaryDatesAndDuration() {
+      summaryStartDate.textContent = rentalStart.value || "N/A";
+      summaryEndDate.textContent = rentalEnd.value || "N/A";
+      summaryRentalDuration.textContent = rentalDurationDisplay.value
+        ? rentalDurationDisplay.value + " days"
+        : "N/A";
+    }
 
-    
-    window.validateAgreement = function () {
-      if (!(checkbox1.checked && checkbox2.checked)) {
-        alert("Please check both agreement boxes before proceeding.");
+    returnMethodSelect.addEventListener("change", () => {
+      if (returnMethodSelect.value === "return-address") {
+        returnAddressGroup.style.display = "block";
+        returnAddressInput.required = true;
+        summaryReturn.textContent = returnAddressInput.value || "N/A";
+      } else {
+        returnAddressGroup.style.display = "none";
+        returnAddressInput.required = false;
+        if (returnMethodSelect.value === "return-area") {
+          summaryReturn.textContent = returnAreaSelect.value || "N/A";
+        } else if (returnMethodSelect.value === "delivery-address") {
+          summaryReturn.textContent = deliveryAddress.value || "N/A";
+        } else {
+          summaryReturn.textContent = "N/A";
+        }
+      }
+    });
+
+    returnAreaSelect.addEventListener("change", () => {
+      summaryBranch.textContent = returnAreaSelect.value || "N/A";
+      if (returnMethodSelect.value === "return-area") {
+        summaryReturn.textContent = returnAreaSelect.value || "N/A";
+      }
+    });
+
+    deliveryAddress.addEventListener("input", () => {
+      summaryDelivery.textContent = deliveryAddress.value || "N/A";
+      if (returnMethodSelect.value === "delivery-address") {
+        summaryReturn.textContent = deliveryAddress.value || "N/A";
+      }
+    });
+
+    returnAddressInput.addEventListener("input", () => {
+      if (returnMethodSelect.value === "return-address") {
+        summaryReturn.textContent = returnAddressInput.value || "N/A";
+      }
+    });
+
+    rentalStart.addEventListener("change", () => {
+      calculateRentalDuration();
+    });
+    rentalEnd.addEventListener("change", () => {
+      calculateRentalDuration();
+    });
+
+    function validateAgreement() {
+      const agreeTerms = document.getElementById("agree-terms").checked;
+      const agreeContact = document.getElementById("agree-contact").checked;
+      if (!agreeTerms || !agreeContact) {
+        alert("Please agree to all terms and conditions before proceeding.");
         return false;
       }
-    
-      clearBookingSummary();
+      if (!saveBookingDetails()) {
+        return false;
+      }
       return true;
-    };
-
- 
-    updateButtonState();
-  };
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-  const payNowButton = document.getElementById("pay-now-button");
-  const checkbox1 = document.getElementById("agree-terms");
-  const checkbox2 = document.getElementById("agree-contact");
-
-  function updatePayNowButton() {
-    if (checkbox1.checked && checkbox2.checked) {
-      payNowButton.classList.remove("disabled");
-      payNowButton.style.pointerEvents = "auto";
-    } else {
-      payNowButton.classList.add("disabled");
-      payNowButton.style.pointerEvents = "none"; 
     }
-  }
 
-  checkbox1.addEventListener("change", updatePayNowButton);
-  checkbox2.addEventListener("change", updatePayNowButton);
+    function saveBookingDetails() {
+      if (!rentalStart.value) {
+        alert("Please select a rental start date.");
+        return false;
+      }
+      if (!rentalEnd.value) {
+        alert("Please select a rental end date.");
+        return false;
+      }
+      if (!rentalDurationDisplay.value) {
+        alert("Rental duration must be between 7 and 31 days.");
+        return false;
+      }
+      if (!returnAreaSelect.value) {
+        alert("Please select a branch.");
+        return false;
+      }
+      if (!deliveryAddress.value.trim()) {
+        alert("Please enter a delivery address.");
+        return false;
+      }
+      if (!returnMethodSelect.value) {
+        alert("Please select a return method.");
+        return false;
+      }
+      if (returnMethodSelect.value === "return-address" && !returnAddressInput.value.trim()) {
+        alert("Please enter a return address.");
+        return false;
+      }
+      const deliveryDate = document.getElementById("delivery-date").value;
+      if (!deliveryDate) {
+        alert("Please select a delivery date.");
+        return false;
+      }
+      const deliveryTime = document.getElementById("delivery-time").value;
+      if (!deliveryTime) {
+        alert("Please select a delivery time.");
+        return false;
+      }
+      const returnDate = document.getElementById("return-date").value;
+      if (!returnDate) {
+        alert("Please select a return date.");
+        return false;
+      }
+      const returnTime = document.getElementById("return-time").value;
+      if (!returnTime) {
+        alert("Please select a return time.");
+        return false;
+      }
 
-  
-  updatePayNowButton();
-});
+      const bookingDetails = {
+        rentalStartDate: rentalStart.value,
+        rentalEndDate: rentalEnd.value,
+        rentalDuration: rentalDurationDisplay.value,
+        branch: returnAreaSelect.value,
+        deliveryAddress: deliveryAddress.value.trim(),
+        deliveryDate,
+        deliveryTime,
+        returnMethod: returnMethodSelect.value,
+        returnAddress:
+          returnMethodSelect.value === "return-address" ? returnAddressInput.value.trim() : null,
+        returnDate,
+        returnTime,
+      };
 
+      localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
+      alert("Booking details saved successfully!");
+      return true;
+    }
 
-function validateAgreement() {
-  const checkbox1 = document.getElementById("agree-terms");
-  const checkbox2 = document.getElementById("agree-contact");
-  if (!checkbox1.checked || !checkbox2.checked) {
-    alert("Please agree to the rental terms and privacy policy and acknowledge contact coordination.");
-    return false;
-  }
-  return true; 
-}
-</script>
+    function init() {
+      loadCarDetails();
+      updateSummaryDatesAndDuration();
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-try {
-const selectedCar = JSON.parse(localStorage.getItem("selectedCar"));
-if (selectedCar) {
+      summaryBranch.textContent = returnAreaSelect.value || "N/A";
+      summaryDelivery.textContent = deliveryAddress.value || "N/A";
+      summaryReturn.textContent = returnAreaSelect.value || "N/A";
 
-const carDetailsHTML = `
-<div class="car-details">
-<img src="${selectedCar.image}" alt="${selectedCar.model}"
-class="summary-car-image">
-<div class="car-info">
-<h3>${selectedCar.model}</h3>
-<p><strong>Type:</strong> ${selectedCar.type}</p>
-<p><strong>Seats:</strong> ${selectedCar.seats}</p>
-<p><strong>Fuel:</strong> ${selectedCar.fuel}</p>
-<p><strong>Daily Rate:</strong>
-₱${selectedCar.rate.toLocaleString()}/day</p>
-</div>
-</div>
-`;
-const summaryDiv = document.getElementById("booking-summary");
+      if (returnMethodSelect.value === "return-address") {
+        returnAddressGroup.style.display = "block";
+        returnAddressInput.required = true;
+      } else {
+        returnAddressGroup.style.display = "none";
+        returnAddressInput.required = false;
+      }
+    }
 
-summaryDiv.innerHTML = carDetailsHTML + `
-<h2>Booking Summary</h2>
-<p><strong>Rental Duration:</strong> <span
-id="summary-rentalDuration"></span></p>
-<p><strong>Branch:</strong> <span id="summary-branch"></span></p>
-<p><strong>Delivery Location:</strong> <span
-id="summary-delivery"></span></p>
-<p><strong>Return Location:</strong> <span
-id="summary-return"></span></p>
-<p><strong>Start Date:</strong> <span
-id="summary-startDate"></span></p>
-
-<p><strong>End Date:</strong> <span
-id="summary-endDate"></span></p>
-${summaryDiv.innerHTML.split('</div>').slice(-2).join('</div>')}`;
-} else {
-console.log("No car selected");
-}
-} catch (error) {
-console.error("Error displaying car details:", error);
-}
-});
-</script>
+    window.onload = init;
+  </script>
 </body>
 </html>
