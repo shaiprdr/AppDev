@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car Owner Dashboard</title>
+  <title>Car Dashboard</title>
   <link rel="stylesheet" href="carownerdashboard.css">
+
 </head>
 <body>
   <aside class="sidebar">
@@ -24,10 +25,10 @@
 
       <div class="cta">
         <p>We connect you with thousands of potential buyers in your area.</p>
-        <button id="uploadBtn">Upload Car</button>
+        <button>Sell Your Car</button>
       </div>
     </div>
-    <a href="#" class="logout">Logout</a>
+    <a href="#" style="color:#dc2626; text-decoration:none;">Logout</a>
   </aside>
 
   <main class="main">
@@ -40,7 +41,7 @@
         </div>
 
         <div class="car-listings">
-          <h3>Bookings Received</h3>
+          <h3>Car Listings</h3>
           <table>
             <thead>
               <tr>
@@ -83,27 +84,5 @@
       </div>
     </div>
   </main>
-
-
-
-  <script>
-    const uploadBtn = document.getElementById("uploadBtn");
-    const uploadModal = document.getElementById("uploadModal");
-    const closeModal = document.getElementById("closeModal");
-
-    uploadBtn.addEventListener("click", () => {
-      uploadModal.style.display = "block";
-    });
-
-    closeModal.addEventListener("click", () => {
-      uploadModal.style.display = "none";
-    });
-
-    window.addEventListener("click", (e) => {
-      if (e.target == uploadModal) {
-        uploadModal.style.display = "none";
-      }
-    });
-  </script>
 </body>
 </html>
