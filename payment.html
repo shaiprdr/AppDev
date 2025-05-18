@@ -9,15 +9,15 @@
 <body>
   <header>
     <div class="logo-container">
-      <img src="IMAGES/logo.png" alt="RREENNTTACAR Logo" class="logo" />
+      <img src="IMAGES/logo1.png" alt="RREENNTTACAR Logo" class="logo" />
       <h1>RREENNTTACAR</h1>
     </div>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="cars.html">Cars</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="landingpage.html">Home</a></li>
+        <li><a href="carlisting.html">Cars</a></li>
+        <li><a href="landingpage.html#about-us">About</a></li>
+        <li><a href="landingpage.html#legal-policies">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -25,150 +25,268 @@
   <main class="container">
     <h2>Payment Details</h2>
 
+    <section class="car-details">
+      <h3>Selected Car</h3>
+      <img id="carImage" src="" alt="Selected Car Image" style="width: 100%; max-width: 300px; border-radius: 12px;"/>
+      <p><strong>Car Name:</strong> <span id="carName"></span></p>
+      <p><strong>Fuel Type:</strong> <span id="carFuel"></span></p>
+      <p><strong>Seating Capacity:</strong> <span id="carCapacity"></span></p>
+      <p><strong>Rental Duration:</strong> <span id="rentalDates"></span></p>
+      <p><strong>Total Days:</strong> <span id="rentalDays"></span></p>
+    </section>
+
     <section class="summary">
-      <p><strong>Car Price:</strong> <span id="summary-carPrice">$25,000</span></p>
-      <p><strong>Delivery Fee:</strong> <span id="summary-deliveryFee">$150</span></p>
-      <p><strong>Service Fee:</strong> <span id="summary-serviceFee">$100</span></p>
+      <p><strong>Car Rental/Day:</strong> <span id="carPricePerDay">₱0</span></p>
+      <p><strong>Total Rental Fee:</strong> <span id="totalRentalPrice">₱0</span></p>
+      <p><strong>Delivery Fee:</strong> <span id="deliveryFee">₱500</span></p>
+      <p><strong>Service Fee:</strong> <span id="serviceFee">₱100</span></p>
 
       <div class="addons">
         <p><strong>Add-ons:</strong></p>
-        <label><input type="checkbox" id="gps" onchange="updateAddOns()"> GPS (+$50)</label><br>
-        <label><input type="checkbox" id="babySeat" onchange="updateAddOns()"> Baby Seat (+$40)</label>
+        <label><input type="checkbox" id="gps" onchange="updatePaymentSummary()"> GPS (+₱50)</label><br>
+        <label><input type="checkbox" id="babySeat" onchange="updatePaymentSummary()"> Baby Seat (+₱40)</label>
       </div>
 
-      <p><strong>Add-ons Total:</strong> <span id="summary-addonsTotal">$0</span></p>
+      <p><strong>Add-ons Total:</strong> <span id="addonsTotal">₱0</span></p>
+
       <div class="voucher">
         <label for="voucherCode"><strong>Discount Voucher:</strong></label>
-        <input type="text" id="voucherCode" placeholder="Enter code" oninput="applyVoucher()" />
+        <input type="text" id="voucherCode" placeholder="Enter code" oninput="updatePaymentSummary()" />
+        <button id="applyVoucherBtn" type="button">Apply</button>
       </div>
 
-      <p><strong>Discount Applied:</strong> <span id="summary-discount">- $0</span></p>
-      <p><strong>Downpayment (20%):</strong> <span id="summary-downpayment">$5,050</span></p>
-      <p><strong>Total Payment:</strong> <span id="summary-totalPayment">$25,250</span></p>
+      <p><strong>Discount Applied:</strong> <span id="discount">- ₱0</span></p>
+      <p><strong>Downpayment (20%):</strong> <span id="downpayment">₱0</span></p>
+      <p><strong>Total Payment:</strong> <span id="totalPayment">₱0</span></p>
+    </section>
 
-      <button class="submit-btn" onclick="submitPayment()">Pay Now</button>
+    <section class="payment-methods">
+      <h3>Choose Payment Method</h3>
+      <label><input type="radio" name="paymentMethod" value="PayPal" onclick="showForm('paypalForm')"> PayPal</label>
+      <label><input type="radio" name="paymentMethod" value="Card" onclick="showForm('cardForm')"> Credit/Debit Card</label>
+      <label><input type="radio" name="paymentMethod" value="GCash" onclick="showForm('gcashForm')"> GCash</label>
+      <label><input type="radio" name="paymentMethod" value="Maya" onclick="showForm('mayaForm')"> Maya</label>
+
+      <form id="paypalForm" class="payment-details" style="display:none;">
+        <label for="paypalName">Full Name:</label>
+        <input type="text" id="paypalName" placeholder="Full Name" required>
+
+        <label for="paypalEmail">PayPal Email:</label>
+        <input type="email" id="paypalEmail" placeholder="Email Address" required>
+      </form>
+
+
+      <form id="cardForm" class="payment-details" style="display:none;">
+        <label for="cardholderName">Cardholder Name:</label>
+        <input type="text" id="cardholderName" placeholder="Cardholder Name" required>
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" placeholder="Card Number" required>
+        <label for="expiry">Expiry (MM/YY):</label>
+        <input type="text" id="expiry" placeholder="MM/YY" required>
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" placeholder="CVV" required>
+      </form>
+
+      <form id="gcashForm" class="payment-details" style="display:none;">
+        <label for="gcashNumber">GCash Number:</label>
+        <input type="text" id="gcashNumber" placeholder="GCash Number" required>
+      </form>
+
+      <form id="mayaForm" class="payment-details" style="display:none;">
+        <label for="mayaEmail">Maya Account Email:</label>
+        <input type="email" id="mayaEmail" placeholder="Maya Account Email" required>
+      </form>
+
+      <button type="button" class="submit-btn" onclick="submitPayment(event)">Confirm Payment</button>
     </section>
 
     <section id="e-receipt" style="display:none;">
       <h2>E-Receipt</h2>
-
       <p class="label">Transaction Code:</p>
-      <p id="txnCode">TXN-XXXXX</p>
-
+      <p id="txnCode"></p>
       <p class="label">Date & Time:</p>
-      <p id="receipt-datetime">--</p>
-
+      <p id="receiptDatetime"></p>
       <p class="label">Payment Method:</p>
-      <p id="receipt-method">--</p>
-
+      <p id="receiptMethod"></p>
       <p class="label">Renter Name:</p>
-      <p id="receipt-name">--</p>
-
+      <p id="receiptName"></p>
       <p class="label">Barcode:</p>
       <p id="barcode">|| ||| | || |||| ||| |</p>
-
       <div class="action-buttons">
         <button onclick="window.print()">🖨️ Print</button>
         <button onclick="downloadReceipt()">📥 Download</button>
         <button onclick="shareReceipt()">🔗 Share</button>
       </div>
-    </section>
-
-    <section class="payment-methods">
-      <h3>Choose Payment Method</h3>
-      <label><input type="radio" name="paymentMethod" value="Cash" onclick="showForm('cashForm')" checked> Cash</label>
-      <label><input type="radio" name="paymentMethod" value="Card" onclick="showForm('cardForm')"> Credit/Debit Card</label>
-      <label><input type="radio" name="paymentMethod" value="GCash" onclick="showForm('gcashForm')"> GCash</label>
-      <label><input type="radio" name="paymentMethod" value="Maya" onclick="showForm('mayaForm')"> Maya</label>
-
-      <div class="payment-details" id="cashForm">
-        <label for="renterName">Your Name (optional):</label>
-        <input type="text" id="renterName" placeholder="Enter your name">
-      </div>
-
-      <div class="payment-details" id="cardForm" style="display:none;">
-        <input type="text" placeholder="Cardholder Name">
-        <input type="text" placeholder="Card Number">
-        <input type="text" placeholder="Expiry (MM/YY)">
-        <input type="text" placeholder="CVV">
-      </div>
-
-      <div class="payment-details" id="gcashForm" style="display:none;">
-        <input type="text" placeholder="GCash Number">
-      </div>
-
-      <div class="payment-details" id="mayaForm" style="display:none;">
-        <input type="text" placeholder="Maya Account Email">
-      </div>
+      <p id="successMessage" style="font-weight: bold; margin-top: 20px; text-align: center;">
+        Booking successful! Thank you for choosing RREENNTTACAR.
+      </p>
+      <button id="okButton" style="padding: 10px 20px; font-size: 16px; margin: 10px auto 0; display: block;" onclick="location.href='carlisting.html'">
+        OK
+      </button>
     </section>
   </main>
 
   <script>
-    function showForm(formId) {
-      const forms = document.querySelectorAll('.payment-details');
-      forms.forEach(form => form.style.display = 'none');
-      document.getElementById(formId).style.display = 'block';
+    const deliveryFee = 500;
+    const serviceFee = 100;
+    const gpsFee = 50;
+    const babySeatFee = 40;
+    let rentalCost = 0;
+    let rentalDays = 0;
+    let currentDiscount = 0;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const car = JSON.parse(localStorage.getItem("selectedCar")) || {};
+      const booking = JSON.parse(localStorage.getItem("bookingDetails")) || {};
+
+      document.getElementById("carImage").src = car.image || "";
+      document.getElementById("carName").textContent = car.name || "N/A";
+      document.getElementById("carFuel").textContent = car.fuel || "N/A";
+      document.getElementById("carCapacity").textContent = car.seats || "N/A";
+
+      document.getElementById("rentalDates").textContent =
+        booking.rentalStartDate && booking.rentalEndDate
+          ? `${booking.rentalStartDate} to ${booking.rentalEndDate}`
+          : "Not specified";
+
+      if (booking.rentalStartDate && booking.rentalEndDate) {
+        const start = new Date(booking.rentalStartDate);
+        const end = new Date(booking.rentalEndDate);
+        const timeDiff = end - start;
+        rentalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+      } else {
+        rentalDays = 0;
+      }
+
+      document.getElementById("rentalDays").textContent = rentalDays;
+
+      const carPrice = parseFloat(car.price) || 0;
+      rentalCost = carPrice * rentalDays;
+
+      document.getElementById("carPricePerDay").textContent = `₱${carPrice}`;
+      document.getElementById("totalRentalPrice").textContent = `₱${rentalCost}`;
+
+      document.getElementById("deliveryFee").textContent = `₱${deliveryFee}`;
+      document.getElementById("serviceFee").textContent = `₱${serviceFee}`;
+
+      updatePaymentSummary();
+    });
+
+    function applyVoucher() {
+      const voucherInput = document.getElementById("voucherCode");
+      const voucherCode = voucherInput.value.trim().toUpperCase();
+
+      if (voucherCode === "") {
+        currentDiscount = 0;
+        alert("Please enter a voucher code.");
+      } else if (voucherCode === "RENT10") {
+        currentDiscount = 0.10 * rentalCost;
+        alert("Voucher applied: 10% discount!");
+      } else if (voucherCode === "RENT20") {
+        currentDiscount = 0.20 * rentalCost;
+        alert("Voucher applied: 20% discount!");
+      } else if (voucherCode.length >= 7) {
+        alert("Invalid voucher code!");
+        currentDiscount = 0;
+        voucherInput.value = "";
+      } else {
+        currentDiscount = 0;
+        alert("Invalid voucher code!");
+        voucherInput.value = "";
+      }
+
+      updatePaymentSummary();
     }
 
-    function submitPayment() {
-      const method = document.querySelector('input[name="paymentMethod"]:checked').value;
-      const name = document.getElementById('renterName')?.value || "N/A";
+    function updatePaymentSummary() {
+      const gps = document.getElementById("gps").checked;
+      const babySeat = document.getElementById("babySeat").checked;
 
-      document.getElementById('receipt-method').innerText = method;
-      document.getElementById('receipt-name').innerText = name;
+      const addonsTotal = (gps ? gpsFee : 0) + (babySeat ? babySeatFee : 0);
+      const totalBeforeDiscount = rentalCost + deliveryFee + serviceFee + addonsTotal;
 
-      const txn = "TXN-" + Math.floor(Math.random() * 90000 + 10000);
-      document.getElementById('txnCode').innerText = txn;
-      document.getElementById('barcode').innerText = "|| ||| | || |||| ||| |";
+      const discount = currentDiscount;
 
-      const date = new Date();
-      document.getElementById('receipt-datetime').innerText = date.toLocaleString();
+      const totalAfterDiscount = totalBeforeDiscount - discount;
+      const downpayment = totalAfterDiscount * 0.2;
 
-      document.getElementById('e-receipt').style.display = 'block';
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      document.getElementById("addonsTotal").textContent = `₱${addonsTotal}`;
+      document.getElementById("discount").textContent = `- ₱${discount.toFixed(2)}`;
+      document.getElementById("totalPayment").textContent = `₱${totalAfterDiscount.toFixed(2)}`;
+      document.getElementById("downpayment").textContent = `₱${downpayment.toFixed(2)}`;
+    }
+
+    document.getElementById("applyVoucherBtn").addEventListener("click", applyVoucher);
+
+
+    function showForm(id) {
+      document.querySelectorAll(".payment-details").forEach(form => form.style.display = "none");
+      document.getElementById(id).style.display = "block";
+    }
+
+    function submitPayment(event) {
+      event.preventDefault();
+
+      const method = document.querySelector('input[name="paymentMethod"]:checked');
+      if (!method) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      const methodValue = method.value;
+      let name = "";
+
+      if (methodValue === "PayPal") {
+        name = document.getElementById("paypalName").value.trim();
+        const email = document.getElementById("paypalEmail").value.trim();
+        if (!name || !email) {
+          alert("Please fill out all PayPal fields.");
+          return;
+        }
+      } else if (methodValue === "Card") {
+        name = document.getElementById("cardholderName").value.trim();
+        const cardNumber = document.getElementById("cardNumber").value.trim();
+        const expiry = document.getElementById("expiry").value.trim();
+        const cvv = document.getElementById("cvv").value.trim();
+        if (!name || !cardNumber || !expiry || !cvv) {
+          alert("Please complete all card fields.");
+          return;
+        }
+      } else if (methodValue === "GCash") {
+        name = "GCash User";
+        const gcashNumber = document.getElementById("gcashNumber").value.trim();
+        if (!gcashNumber) {
+          alert("Please enter your GCash number.");
+          return;
+        }
+      } else if (methodValue === "Maya") {
+        name = "Maya User";
+        const mayaEmail = document.getElementById("mayaEmail").value.trim();
+        if (!mayaEmail) {
+          alert("Please enter your Maya email.");
+          return;
+        }
+      }
+
+      const txnCode = "TXN-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+      document.getElementById("txnCode").textContent = txnCode;
+      document.getElementById("receiptDatetime").textContent = new Date().toLocaleString();
+      document.getElementById("receiptMethod").textContent = methodValue;
+      document.getElementById("receiptName").textContent = name;
+
+      document.querySelector(".payment-methods").style.display = "none";
+      document.getElementById("e-receipt").style.display = "block";
     }
 
     function downloadReceipt() {
-      alert('Receipt downloaded!');
+      alert("Downloading receipt...");
     }
 
     function shareReceipt() {
-      alert('Receipt shared!');
+      alert("Sharing receipt...");
     }
-
-    let basePrice = 25000;
-    let deliveryFee = 150;
-    let serviceFee = 100;
-    let gpsFee = 50;
-    let babySeatFee = 40;
-    let discount = 0;
-
-    function updateAddOns() {
-      let totalAddons = 0;
-      if (document.getElementById('gps').checked) totalAddons += gpsFee;
-      if (document.getElementById('babySeat').checked) totalAddons += babySeatFee;
-      document.getElementById('summary-addonsTotal').innerText = "$" + totalAddons;
-      updateTotals(totalAddons, discount);
-    }
-
-    function applyVoucher() {
-      const code = document.getElementById('voucherCode').value.trim().toUpperCase();
-      discount = code === "VOUCHER20" ? 200 : 0;
-      document.getElementById('summary-discount').innerText = "- $" + discount;
-      updateAddOns();
-    }
-
-    function updateTotals(addons, discountVal) {
-      const total = basePrice + deliveryFee + serviceFee + addons - discountVal;
-      const downpayment = total * 0.2;
-      document.getElementById('summary-totalPayment').innerText = "$" + total.toLocaleString();
-      document.getElementById('summary-downpayment').innerText = "$" + downpayment.toLocaleString();
-    }
-
-    showForm('cashForm');
-    window.onload = () => {
-      updateAddOns();
-    };
   </script>
+
 </body>
 </html>
