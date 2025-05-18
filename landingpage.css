@@ -281,21 +281,6 @@ body {
   color: #f0e193;
 }
 
-#forgotPassword {
-  text-align: center;
-  font-size: 0.8rem;
-  margin-top: 0rem;
-}
-
-#forgotPassword a {
-  color: #fdd700;
-  text-decoration: none;
-}
-
-#forgotPassword a:hover {
-  text-decoration: underline;
-}
-
 @media screen and (max-width: 768px) {
   .hero-content {
     flex-direction: column;
@@ -1205,35 +1190,35 @@ grid-column: span 1;
 
 .faqs-section {
   background: linear-gradient(to right, #5c0e14, #060606);
-  padding: 30px 8px;       /* reduced padding */
-  margin: 3px;             /* reduced margin */
-  border-radius: 4px;      /* slightly bigger radius for better proportion */
+  padding: 30px 8px;       
+  margin: 3px;            
+  border-radius: 4px;      
 }
 
 .faqs-section h2 {
   text-align: center;
-  font-size: 1.8em;        /* smaller font size */
+  font-size: 1.8em;        
   color: #ffd700;
-  margin-bottom: 30px;     /* less space below heading */
+  margin-bottom: 30px;     
   font-family: Arial, sans-serif;
 }
 
 .faq-list {
-  max-width: 700px;        /* smaller max width */
+  max-width: 700px;        
   margin: 0 auto;
 }
 
 .faq-item {
   background: rgba(60, 0, 0, 0.5);
-  border: 1px solid rgba(255, 215, 0, 0.15); /* lighter border */
-  border-radius: 6px;      /* smaller radius */
-  margin-bottom: 10px;     /* tighter spacing */
+  border: 1px solid rgba(255, 215, 0, 0.15); 
+  border-radius: 6px;      
+  margin-bottom: 10px;    
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  backdrop-filter: blur(8px); /* slightly less blur */
+  backdrop-filter: blur(8px); 
 }
 
 .faq-question {
-  padding: 12px 15px;       /* smaller padding */
+  padding: 12px 15px;      
   cursor: pointer;
   position: relative;
   color: #ffd700;
@@ -1243,13 +1228,13 @@ grid-column: span 1;
   align-items: center;
   font-family: Arial, sans-serif;
   transition: all 0.3s ease;
-  font-size: 0.95rem;       /* smaller font */
+  font-size: 0.95rem;       
 }
 
 .faq-question::after {
   content: '+';
   color: #ffd700;
-  font-size: 18px;          /* smaller plus sign */
+  font-size: 18px;          
   transition: transform 0.3s ease;
 }
 
@@ -1266,11 +1251,11 @@ grid-column: span 1;
   font-family: Arial, sans-serif;
   line-height: 1.5;
   padding: 0 15px;
-  font-size: 0.9rem;         /* smaller font */
+  font-size: 0.9rem;         
 }
 
 .faq-answer.active {
-  max-height: 280px;         /* slightly smaller max height */
+  max-height: 280px;         
   padding: 15px;
   border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
@@ -1420,11 +1405,11 @@ html {
   margin-right: 10px;
 }
 
-/* Chat Widget */
+
 .chat-widget {
   position: fixed;
   bottom: 100px;
-  left: 30px; /* Moved to left */
+  left: 30px;
   width: 300px;
   height: 400px;
   background: #ffffff;
@@ -1460,7 +1445,6 @@ html {
   cursor: pointer;
 }
 
-/* Messages */
 .chat-messages {
   flex: 1;
   padding: 15px;
@@ -1515,7 +1499,6 @@ html {
   border-radius: 12px 12px 0 12px;
 }
 
-/* Input */
 .chat-input {
   padding: 10px;
   background: white;
@@ -1551,11 +1534,11 @@ html {
   filter: brightness(0) invert(1);
 }
 
-/* Toggle Button */
+
 .chat-toggle {
   position: fixed;
   bottom: 30px;
-  left: 30px; /* Left side */
+  left: 30px;
   background: #af111e;
   color: white;
   border: none;
@@ -1579,3 +1562,4 @@ html {
   height: 26px;
   filter: brightness(0) invert(1);
 }
+

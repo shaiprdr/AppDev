@@ -22,6 +22,7 @@
     </div>
   </header>
 
+
   <section class="booking-hero">
     <video autoplay muted loop class="booking-hero-video">
       <source src="IMAGES/7154212-hd_1920_1080_25fps.mp4" type="video/mp4" />
@@ -31,6 +32,7 @@
       <h1>Find Your Perfect Ride</h1>
       <p>Quick and easy booking</p>
     </div>
+
 
     <div class="booking-bar-overlay">
       <div class="booking-bar">
@@ -96,10 +98,12 @@
             <label for="delivery-date">Delivery Date</label>
           </div>
 
+
           <div class="input-group">
             <input type="time" id="delivery-time" name="delivery-time" required />
             <label for="delivery-time">Delivery Time</label>
           </div>
+
 
           <div class="input-group return-method-wrapper">
             <div class="return-method-input">
@@ -113,6 +117,7 @@
             </div>
           </div>
 
+
           <div class="input-group return-address" style="display: none;">
             <label for="return-address">Return Address</label>
             <input
@@ -123,10 +128,13 @@
             />
           </div>
 
+
           <div class="input-group">
             <input type="date" id="return-date" name="return-date" required />
             <label for="return-date">Return Date</label>
           </div>
+
+
 
 
           <div class="input-group">
@@ -143,9 +151,11 @@
     </div>
   </section>
 
+
   <section class="booking-sum-container">
     <div class="booking-summary-container">
       <div class="summary-flex-container">
+
 
         <div id="booking-summary">
           <h2>Booking Summary</h2>
@@ -156,6 +166,7 @@
           <p><strong>Return Location:</strong> <span id="summary-return"></span></p>
           <p><strong>Start Date:</strong> <span id="summary-startDate"></span></p>
           <p><strong>End Date:</strong> <span id="summary-endDate"></span></p>
+
 
           <div class="acknowledgment-section">
             <label
@@ -185,7 +196,8 @@
     </div>
   </section>
 
-  
+
+ 
   <div id="rental-terms-modal" class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
@@ -198,439 +210,403 @@
     </div>
   </div>
 
+
   <footer>
     <p>&copy; 2025 RREENNTTACAR. All rights reserved.</p>
   </footer>
 
-  <script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const returnMethodSelect = document.getElementById("return-method");
+  const returnAreaSelect = document.getElementById("return-area");
+  const deliveryAddress = document.getElementById("delivery-address");
+  const returnAddressGroup = document.querySelector(".return-address");
+  const returnAddressInput = document.getElementById("return-address");
+  const debugDisplay = document.getElementById("debug-display"); 
+
+  returnMethodSelect.addEventListener("change", function () {
+    const selectedValue = this.value;
+
+    if (selectedValue === "return-area") {
+      returnAddressGroup.style.display = "none";
+      returnAddressInput.value = returnAreaSelect.value;
+      console.log("Return address set to branch:", returnAddressInput.value);
+      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
+
+    } else if (selectedValue === "delivery-address") {
+      returnAddressGroup.style.display = "none";
+      returnAddressInput.value = deliveryAddress.value;
+      console.log("Return address set to delivery address:", returnAddressInput.value);
+      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
+
+    } else if (selectedValue === "return-address") {
+      returnAddressGroup.style.display = "block";
+      returnAddressInput.value = "";
+      console.log("Return address field is now editable.");
+      debugDisplay.textContent = "Please enter a return address.";
+    }
+  });
+
+  returnAreaSelect.addEventListener("change", () => {
+    if (returnMethodSelect.value === "return-area") {
+      returnAddressInput.value = returnAreaSelect.value;
+      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
+    }
+  });
+
+  deliveryAddress.addEventListener("input", () => {
+    if (returnMethodSelect.value === "delivery-address") {
+      returnAddressInput.value = deliveryAddress.value;
+      debugDisplay.textContent = "Return Address: " + returnAddressInput.value;
+    }
+  });
+});
+</script>
+
+<script>
   document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("rental-terms-modal");
-    const modalContent = modal.querySelector(".modal-content");
-    const closeBtn = document.querySelector(".close-button");
-
-    
-    function openModal() {
-      modal.style.display = "block";
-      
-      
-      modalContent.style.animation = "none";
-      void modalContent.offsetWidth; 
-      modalContent.style.animation = "slideUp 0.4s ease forwards";
-    }
-
-    
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    
-    openModal();
+  
+  const saveBtn = document.getElementById("save-button");
 
   
+  const fields = [
+    "rental-start",
+    "rental-end",
+    "rental-duration-display",
+    "return-area",
+    "delivery-address",
+    "delivery-date",
+    "delivery-time",
+    "return-method",
+    "return-address",
+    "return-date",
+    "return-time"
+  ];
+
+  
+  function saveFormData() {
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        localStorage.setItem(id, el.value);
+      }
+    });
+    alert("Booking information saved!");
+  }
+
+  
+  function loadFormData() {
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const savedValue = localStorage.getItem(id);
+        if (savedValue) {
+          el.value = savedValue;
+          
+          if (el.tagName.toLowerCase() === "select") {
+            el.dispatchEvent(new Event("change"));
+          }
+        }
+      }
+    });
+  }
+
+  
+  saveBtn.addEventListener("click", saveFormData);
+
+  
+  loadFormData();
+
+ 
+  const returnMethodSelect = document.getElementById("return-method");
+  const returnAreaSelect = document.getElementById("return-area");
+  const deliveryAddress = document.getElementById("delivery-address");
+  const returnAddressGroup = document.querySelector(".return-address");
+  const returnAddressInput = document.getElementById("return-address");
+
+  returnMethodSelect.addEventListener("change", function () {
+    const selectedValue = this.value;
+
+    if (selectedValue === "return-area") {
+      returnAddressGroup.style.display = "none";
+      returnAddressInput.value = returnAreaSelect.value;
+    } else if (selectedValue === "delivery-address") {
+      returnAddressGroup.style.display = "none";
+      returnAddressInput.value = deliveryAddress.value;
+    } else if (selectedValue === "return-address") {
+      returnAddressGroup.style.display = "block";
+      returnAddressInput.value = "";
+    }
+  });
+
+  returnAreaSelect.addEventListener("change", () => {
+    if (returnMethodSelect.value === "return-area") {
+      returnAddressInput.value = returnAreaSelect.value;
+    }
+  });
+
+  deliveryAddress.addEventListener("input", () => {
+    if (returnMethodSelect.value === "delivery-address") {
+      returnAddressInput.value = deliveryAddress.value;
+    }
+  });
+});
+
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const rentalStartInput = document.getElementById("rental-start");
+  const rentalEndInput = document.getElementById("rental-end");
+  const rentalDurationDisplay = document.getElementById("rental-duration-display");
+  const deliveryDateInput = document.getElementById("delivery-date");
+  const returnDateInput = document.getElementById("return-date");
+
+  function updateRentalDetails() {
+    const startDate = new Date(rentalStartInput.value);
+    const endDate = new Date(rentalEndInput.value);
+
+    if (rentalStartInput.value && rentalEndInput.value) {
+      const durationInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+      if (durationInDays < 7 || durationInDays > 31) {
+        alert("❌ Invalid rental duration.\n\nOur car rentals are only available for:\n• 1 week (7 days)\n• 2 weeks (14 days)\n• 3 weeks (21 days)\n• 1 month (31 days)\n\nPlease select a valid duration.");
+        rentalStartInput.value = "";
+        rentalEndInput.value = "";
+        rentalDurationDisplay.value = "";
+        deliveryDateInput.value = "";
+        returnDateInput.value = "";
+        return;
+      }
+
+      rentalDurationDisplay.value = `${durationInDays} days`;
+
+      
+      const deliveryDate = new Date(startDate);
+      deliveryDate.setDate(deliveryDate.getDate() - 1);
+      deliveryDateInput.value = deliveryDate.toISOString().split("T")[0];
+
+            const returnDate = new Date(endDate);
+      returnDate.setDate(returnDate.getDate() + 1);
+      returnDateInput.value = returnDate.toISOString().split("T")[0];
+    }
+  }
+
+  rentalStartInput.addEventListener("change", updateRentalDetails);
+  rentalEndInput.addEventListener("change", updateRentalDetails);
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("rental-terms-modal");
+  const modalContent = modal.querySelector(".modal-content");
+  const closeBtn = document.querySelector(".close-button");
+
+    function openModal() {
+    modal.style.display = "block";
+    
+        modalContent.style.animation = "none";
+    void modalContent.offsetWidth; // Trigger reflow
+    modalContent.style.animation = "slideUp 0.4s ease forwards";
+  }
+
+  
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  
+  openModal();
+
     closeBtn.addEventListener("click", closeModal);
 
-
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
+  
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
   });
-  </script>
-
-  <script>
-    const returnMethodSelect = document.getElementById("return-method");
-    const returnAreaSelect = document.getElementById("return-area");
-    const deliveryAddress = document.getElementById("delivery-address");
-    const returnAddressGroup = document.querySelector(".return-address");
-    const returnAddressInput = document.getElementById("return-address");
-
-    const rentalStart = document.getElementById("rental-start");
-    const rentalEnd = document.getElementById("rental-end");
-    const rentalDurationDisplay = document.getElementById("rental-duration-display");
-
-    const summaryCarModel = document.getElementById("summary-carModel");
-    const summaryRentalDuration = document.getElementById("summary-rentalDuration");
-    const summaryBranch = document.getElementById("summary-branch");
-    const summaryDelivery = document.getElementById("summary-delivery");
-    const summaryReturn = document.getElementById("summary-return");
-    const summaryStartDate = document.getElementById("summary-startDate");
-    const summaryEndDate = document.getElementById("summary-endDate");
-
-    // Ito ulittt. Tanngalin na lang ba to???
-    let sliderIndex = 0;
-    let sliderImages = [];
-
-    function loadCarDetails() {
-      const carDataJSON = localStorage.getItem("selectedCar");
-      if (!carDataJSON) {
-        alert("No car selected. Redirecting to car listing page.");
-        window.location.href = "carlisting.html";
-        return;
-      }
-      const carData = JSON.parse(carDataJSON);
-
-      summaryCarModel.textContent = carData.name || carData.model || "N/A";
-
-      // Hmmm??? Di na kasi keri ng mata ko kaya di ko na pinagtiyagaan i-figure out
-      sliderImages = carData.images || [carData.image];
-      if (!Array.isArray(sliderImages)) sliderImages = [sliderImages];
-
-      setupSliderImages();
-    }
-
-    function setupSliderImages() {
-      const sliderContainer = document.getElementById("car-slider");
-      [...sliderContainer.querySelectorAll("img")].forEach((img) => img.remove());
-
-      sliderImages.forEach((imgSrc, idx) => {
-        const img = document.createElement("img");
-        img.src = imgSrc;
-        img.alt = "Car Image " + (idx + 1);
-        img.classList.add("slide-image");
-        if (idx !== sliderIndex) img.style.display = "none";
-        sliderContainer.insertBefore(img, sliderContainer.querySelector(".prev"));
-      });
-    }
-
-    function prevSlide() {
-      sliderIndex = (sliderIndex - 1 + sliderImages.length) % sliderImages.length;
-      updateSlider();
-    }
-
-    function nextSlide() {
-      sliderIndex = (sliderIndex + 1) % sliderImages.length;
-      updateSlider();
-    }
-
-    function updateSlider() {
-      const images = document.querySelectorAll("#car-slider img.slide-image");
-      images.forEach((img, idx) => {
-        img.style.display = idx === sliderIndex ? "block" : "none";
-      });
-    }
-
-    function saveBookingDetails() {
-      if (!rentalStart.value || !rentalEnd.value) {
-        alert("Please select rental start and end dates.");
-        return;
-      }
-
-
-      const startDate = new Date(rentalStart.value);
-      const endDate = new Date(rentalEnd.value);
-      const diffTime = endDate - startDate;
-      const rentalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    
-      if (rentalDays < 7 || rentalDays > 31) {
-        alert("Rental duration must be between 7 and 31 days.");
-        return;
-      }
-
-      const agreeTerms = document.getElementById("agree-terms").checked;
-      const agreeContact = document.getElementById("agree-contact").checked;
-      if (!agreeTerms || !agreeContact) {
-        alert("Please agree to the terms and privacy policy, and acknowledge contact terms.");
-        return;
-      }
-    
-      const selectedCar = JSON.parse(localStorage.getItem("selectedCar"));
-      if (!selectedCar) {
-        alert("No car selected. Please select a car first.");
-        window.location.href = "carlisting.html";
-        return;
-      }
-    
-      const bookingDetails = {
-        ...selectedCar,
-        rentalStartDate: rentalStart.value,
-        rentalEndDate: rentalEnd.value,
-        rentalDays: rentalDays,
-        branch: returnAreaSelect.value,
-        deliveryAddress: deliveryAddress.value,
-        deliveryDate: document.getElementById("delivery-date").value,
-        deliveryTime: document.getElementById("delivery-time").value,
-        returnMethod: returnMethodSelect.value,
-        returnAddress: returnAddressInput.value || "",
-        returnDate: document.getElementById("return-date").value,
-        returnTime: document.getElementById("return-time").value,
-        deliveryFee: 500,
-      };
-
-      localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
-
-      window.location.href = "payment.html";
-    }
-
-    function calculateRentalDuration() {
-      if (rentalStart.value && rentalEnd.value) {
-        const start = new Date(rentalStart.value);
-        const end = new Date(rentalEnd.value);
-        const diffTime = end.getTime() - start.getTime();
-        const diffDays = diffTime / (1000 * 3600 * 24) + 1;
-        if (diffDays >= 7 && diffDays <= 31) {
-          rentalDurationDisplay.value = diffDays;
-        } else {
-          rentalDurationDisplay.value = "";
-        }
-        updateSummaryDatesAndDuration();
-      }
-    }
-
-    function updateSummaryDatesAndDuration() {
-      summaryStartDate.textContent = rentalStart.value || "N/A";
-      summaryEndDate.textContent = rentalEnd.value || "N/A";
-      summaryRentalDuration.textContent = rentalDurationDisplay.value
-        ? rentalDurationDisplay.value + " days"
-        : "N/A";
-    }
-
-    returnMethodSelect.addEventListener("change", () => {
-      if (returnMethodSelect.value === "return-address") {
-        returnAddressGroup.style.display = "block";
-        returnAddressInput.required = true;
-        summaryReturn.textContent = returnAddressInput.value || "N/A";
-      } else {
-        returnAddressGroup.style.display = "none";
-        returnAddressInput.required = false;
-        if (returnMethodSelect.value === "return-area") {
-          summaryReturn.textContent = returnAreaSelect.value || "N/A";
-        } else if (returnMethodSelect.value === "delivery-address") {
-          summaryReturn.textContent = deliveryAddress.value || "N/A";
-        } else {
-          summaryReturn.textContent = "N/A";
-        }
-      }
-    });
-
-    returnAreaSelect.addEventListener("change", () => {
-      summaryBranch.textContent = returnAreaSelect.value || "N/A";
-      if (returnMethodSelect.value === "return-area") {
-        summaryReturn.textContent = returnAreaSelect.value || "N/A";
-      }
-    });
-
-    deliveryAddress.addEventListener("input", () => {
-      summaryDelivery.textContent = deliveryAddress.value || "N/A";
-      if (returnMethodSelect.value === "delivery-address") {
-        summaryReturn.textContent = deliveryAddress.value || "N/A";
-      }
-    });
-
-    returnAddressInput.addEventListener("input", () => {
-      if (returnMethodSelect.value === "return-address") {
-        summaryReturn.textContent = returnAddressInput.value || "N/A";
-      }
-    });
-
-    rentalStart.addEventListener("change", () => {
-      calculateRentalDuration();
-    });
-    rentalEnd.addEventListener("change", () => {
-      calculateRentalDuration();
-    });
-
-    function validateAgreement() {
-      const agreeTerms = document.getElementById("agree-terms").checked;
-      const agreeContact = document.getElementById("agree-contact").checked;
-      if (!agreeTerms || !agreeContact) {
-        alert("Please agree to all terms and conditions before proceeding.");
-        return false;
-      }
-      if (!saveBookingDetails()) {
-        return false;
-      }
-      return true;
-    }
-
-    function saveBookingDetails() {
-      if (!rentalStart.value) {
-        alert("Please select a rental start date.");
-        return false;
-      }
-      if (!rentalEnd.value) {
-        alert("Please select a rental end date.");
-        return false;
-      }
-      if (!rentalDurationDisplay.value) {
-        alert("Rental duration must be between 7 and 31 days.");
-        return false;
-      }
-      if (!returnAreaSelect.value) {
-        alert("Please select a branch.");
-        return false;
-      }
-      if (!deliveryAddress.value.trim()) {
-        alert("Please enter a delivery address.");
-        return false;
-      }
-      if (!returnMethodSelect.value) {
-        alert("Please select a return method.");
-        return false;
-      }
-      if (returnMethodSelect.value === "return-address" && !returnAddressInput.value.trim()) {
-        alert("Please enter a return address.");
-        return false;
-      }
-      const deliveryDate = document.getElementById("delivery-date").value;
-      if (!deliveryDate) {
-        alert("Please select a delivery date.");
-        return false;
-      }
-      const deliveryTime = document.getElementById("delivery-time").value;
-      if (!deliveryTime) {
-        alert("Please select a delivery time.");
-        return false;
-      }
-      const returnDate = document.getElementById("return-date").value;
-      if (!returnDate) {
-        alert("Please select a return date.");
-        return false;
-      }
-      const returnTime = document.getElementById("return-time").value;
-      if (!returnTime) {
-        alert("Please select a return time.");
-        return false;
-      }
-
-      const bookingDetails = {
-        rentalStartDate: rentalStart.value,
-        rentalEndDate: rentalEnd.value,
-        rentalDuration: rentalDurationDisplay.value,
-        branch: returnAreaSelect.value,
-        deliveryAddress: deliveryAddress.value.trim(),
-        deliveryDate,
-        deliveryTime,
-        returnMethod: returnMethodSelect.value,
-        returnAddress:
-          returnMethodSelect.value === "return-address" ? returnAddressInput.value.trim() : null,
-        returnDate,
-        returnTime,
-      };
-
-      localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
-      alert("Booking details saved successfully!");
-      return true;
-    }
-
-    function init() {
-      loadCarDetails();
-      updateSummaryDatesAndDuration();
-
-      summaryBranch.textContent = returnAreaSelect.value || "N/A";
-      summaryDelivery.textContent = deliveryAddress.value || "N/A";
-      summaryReturn.textContent = returnAreaSelect.value || "N/A";
-
-      if (returnMethodSelect.value === "return-address") {
-        returnAddressGroup.style.display = "block";
-        returnAddressInput.required = true;
-      } else {
-        returnAddressGroup.style.display = "none";
-        returnAddressInput.required = false;
-      }
-    }
-
-    window.onload = init;
-  </script>
-  <script> 
-    function calculateDates() {
-  // Get the rental start and end date inputs
-  const rentalStartDate = document.getElementById('rental-start').value;
-  const rentalEndDate = document.getElementById('rental-end').value;
-  
-  // Only proceed if both dates are selected
-  if (rentalStartDate && rentalEndDate) {
-    // Calculate delivery date (1 day before rental start)
-    const startDate = new Date(rentalStartDate);
-    const deliveryDate = new Date(startDate);
-    deliveryDate.setDate(startDate.getDate() - 1);
-    
-    // Calculate return date (1 day after rental end)
-    const endDate = new Date(rentalEndDate);
-    const returnDate = new Date(endDate);
-    returnDate.setDate(endDate.getDate() + 1);
-    
-    // Format dates in DD/MM/YYYY format
-    const formatDate = (date) => {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    };
-    
-    // Create delivery and return date fields if they don't exist
-    let deliveryDateField = document.getElementById('delivery-date');
-    let returnDateField = document.getElementById('return-date');
-    
-    if (!deliveryDateField) {
-      createDateField('delivery-date', 'Delivery Date', formatDate(deliveryDate));
-    } else {
-      deliveryDateField.value = formatDate(deliveryDate);
-    }
-    
-    if (!returnDateField) {
-      createDateField('return-date', 'Return Date', formatDate(returnDate));
-    } else {
-      returnDateField.value = formatDate(returnDate);
-    }
-    
-    // Store the calculated dates as hidden inputs for form submission
-    updateOrCreateHiddenField('delivery-date-hidden', formatDate(deliveryDate));
-    updateOrCreateHiddenField('return-date-hidden', formatDate(returnDate));
-  }
-}
-
-// Helper function to create date display fields
-function createDateField(id, labelText, dateValue) {
-  const rentalEndGroup = document.getElementById('rental-end').closest('.input-group');
-  
-  const newGroup = document.createElement('div');
-  newGroup.className = 'input-group';
-  
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.id = id;
-  input.value = dateValue;
-  input.readOnly = true;
-  
-  const label = document.createElement('label');
-  label.htmlFor = id;
-  label.textContent = labelText;
-  
-  newGroup.appendChild(input);
-  newGroup.appendChild(label);
-  
-  rentalEndGroup.parentNode.insertBefore(newGroup, rentalEndGroup.nextSibling);
-  
-  return input;
-}
-
-// Helper function to update or create hidden fields
-function updateOrCreateHiddenField(id, value) {
-  let hiddenField = document.getElementById(id);
-  if (!hiddenField) {
-    hiddenField = document.createElement('input');
-    hiddenField.type = 'hidden';
-    hiddenField.id = id;
-    hiddenField.name = id.replace('-hidden', '');
-    document.getElementById('rental-end').closest('form').appendChild(hiddenField);
-  }
-  hiddenField.value = value;
-}
-
-// Event listeners for the rental date fields
-document.addEventListener('DOMContentLoaded', function() {
-  const startDateField = document.getElementById('rental-start');
-  const endDateField = document.getElementById('rental-end');
-  
-  if (startDateField && endDateField) {
-    startDateField.addEventListener('change', calculateDates);
-    endDateField.addEventListener('change', calculateDates);
-    
-    // Initial calculation in case dates are pre-filled
-    calculateDates();
-  }
 });
-  </script>
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  
+  const inputs = document.querySelectorAll('.booking-bar-overlay input, .booking-bar-overlay select');
+
+  inputs.forEach(input => {
+    if (input.tagName.toLowerCase() === 'select') {
+      input.selectedIndex = 0;  
+    } else if (input.type === 'checkbox' || input.type === 'radio') {
+      input.checked = false;    
+    } else {
+      input.value = '';         
+    }
+  });
+});
+</script>
+
+<script>
+  function saveBookingDetails() {
+    const startDate = document.getElementById("rental-start").value;
+    const endDate = document.getElementById("rental-end").value;
+    const rentalDuration = document.getElementById("rental-duration-display").value;
+    const branch = document.getElementById("return-area").value;
+    const delivery = document.getElementById("delivery-address").value;
+    const returnMethod = document.getElementById("return-method").value;
+    const returnLocation = returnMethod === "return-address"
+      ? document.getElementById("return-address").value
+      : (returnMethod === "return-area"
+          ? branch
+          : delivery);
+
+    
+    const bookingInfo = {
+      rentalDuration: rentalDuration,
+      branch: branch,
+      delivery: delivery,
+      returnLocation: returnLocation,
+      startDate: startDate,
+      endDate: endDate
+    };
+
+    
+    localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
+
+    
+    document.getElementById("summary-rentalDuration").textContent = rentalDuration;
+    document.getElementById("summary-branch").textContent = branch;
+    document.getElementById("summary-delivery").textContent = delivery;
+    document.getElementById("summary-return").textContent = returnLocation;
+    document.getElementById("summary-startDate").textContent = startDate;
+    document.getElementById("summary-endDate").textContent = endDate;
+  }
+
+    window.addEventListener("DOMContentLoaded", () => {
+    const bookingInfo = JSON.parse(localStorage.getItem("bookingInfo"));
+    if (bookingInfo) {
+      document.getElementById("summary-rentalDuration").textContent = bookingInfo.rentalDuration;
+      document.getElementById("summary-branch").textContent = bookingInfo.branch;
+      document.getElementById("summary-delivery").textContent = bookingInfo.delivery;
+      document.getElementById("summary-return").textContent = bookingInfo.returnLocation;
+      document.getElementById("summary-startDate").textContent = bookingInfo.startDate;
+      document.getElementById("summary-endDate").textContent = bookingInfo.endDate;
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slider-image");
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+    }
+
+    window.nextSlide = function () {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    };
+
+    window.prevSlide = function () {
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      showSlide(slideIndex);
+    };
+
+    
+    setInterval(() => {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }, 4000);
+
+    
+    showSlide(slideIndex);
+  });
+</script>
+<script>
+  window.onload = function () {
+    const checkbox1 = document.getElementById('checkbox1');
+    const checkbox2 = document.getElementById('checkbox2');
+    const payNowButton = document.getElementById('pay-now-button');
+
+        function clearBookingSummary() {
+      document.getElementById('summary-carModel').textContent = '';
+      document.getElementById('summary-rentalDuration').textContent = '';
+      document.getElementById('summary-branch').textContent = '';
+      document.getElementById('summary-delivery').textContent = '';
+      document.getElementById('summary-return').textContent = '';
+      document.getElementById('summary-startDate').textContent = '';
+      document.getElementById('summary-endDate').textContent = '';
+    }
+
+    
+    clearBookingSummary();
+
+        function updateButtonState() {
+      if (checkbox1.checked && checkbox2.checked) {
+        payNowButton.classList.remove('disabled');
+        payNowButton.style.pointerEvents = 'auto';
+        payNowButton.style.opacity = '1';
+      } else {
+        payNowButton.classList.add('disabled');
+        payNowButton.style.pointerEvents = 'none';
+        payNowButton.style.opacity = '0.5';
+      }
+    }
+
+    checkbox1.addEventListener('change', updateButtonState);
+    checkbox2.addEventListener('change', updateButtonState);
+
+    
+    window.validateAgreement = function () {
+      if (!(checkbox1.checked && checkbox2.checked)) {
+        alert("Please check both agreement boxes before proceeding.");
+        return false;
+      }
+      
+      clearBookingSummary();
+      return true;
+    };
+
+        updateButtonState();
+  };
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const payNowButton = document.getElementById("pay-now-button");
+  const checkbox1 = document.getElementById("agree-terms");
+  const checkbox2 = document.getElementById("agree-contact");
+
+  function updatePayNowButton() {
+    if (checkbox1.checked && checkbox2.checked) {
+      payNowButton.classList.remove("disabled");
+      payNowButton.style.pointerEvents = "auto"; 
+    } else {
+      payNowButton.classList.add("disabled");
+      payNowButton.style.pointerEvents = "none";    
+ }
+  }
+
+  checkbox1.addEventListener("change", updatePayNowButton);
+  checkbox2.addEventListener("change", updatePayNowButton);
+
+    updatePayNowButton();
+});
+
+function validateAgreement() {
+  const checkbox1 = document.getElementById("agree-terms");
+  const checkbox2 = document.getElementById("agree-contact");
+  if (!checkbox1.checked || !checkbox2.checked) {
+    alert("Please agree to the rental terms and privacy policy and acknowledge contact coordination.");
+    return false;   }
+  return true;
+}
+</script>
+  
 </body>
 </html>
+

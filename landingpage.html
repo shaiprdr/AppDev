@@ -142,11 +142,12 @@
 
   <p id="forgotPassword"><a href="#">Forgot Password?</a></p>
 
-  <button type="button" class="btn user" id="signupUserBtn">Sign Up as User</button>
+  <button type="button" class="btn user" onclick="window.location.href = 'userdashboard.html'"> 
+    Sign Up as User </button>
   <button type="button" class="btn owner" onclick="window.location.href='carownerdashboard.html'">
     Sign Up as Car Owner
   </button>
-</div>
+</div>  
           </form>
 
           <form class="signup-form" id="signInForm" style="display: none;">
@@ -589,7 +590,7 @@ Hi there 👋
 <div class="chat-input">
 <input type="text" id="messageInput" placeholder="Write a message...">
 <button id="sendMessage">
-<img src="IMAGES/right-arrow.png" alt="Send">
+<img src="IMAGES/send.png" alt="Send">
 </button>
 </div>
 </div>
@@ -731,9 +732,9 @@ Hi there 👋
 
             input.value = value;
         }
-
-      
-        document.addEventListener('DOMContentLoaded', function() {
+</script>
+      <script>        
+      document.addEventListener('DOMContentLoaded', function() {
             
             validateForm();
 
@@ -846,13 +847,6 @@ document.addEventListener("DOMContentLoaded", () => {
     validatePage2();
   }
   
-  window.goToPage3 = function() {
- 
-    saveFormData();
-  
-    window.location.href = 'userdashboard.html';
-  }
-  
 
   function saveFormData() {
     const userData = {
@@ -923,7 +917,39 @@ document.addEventListener("DOMContentLoaded", () => {
         function goToPage3() {
   document.getElementById("page2").style.display = "none";
   document.getElementById("page3").style.display = "block";
+  
+  saveFormData();
+  
+  validatePage3();
 }
+function validatePage3() {
+  const password = document.getElementById('password')?.value;
+  const confirmPassword = document.getElementById('confirmPassword')?.value;
+  const termsAccepted = document.getElementById('termsCheckbox')?.checked;
+  const submitButton = document.getElementById('signupUserBtn');
+  
+  if (submitButton && password && confirmPassword && password === confirmPassword && termsAccepted) {
+    submitButton.disabled = false;
+  } else if (submitButton) {
+    submitButton.disabled = true;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const nextButton2 = document.getElementById('nextButton2');
+  if (nextButton2) {
+    nextButton2.addEventListener('click', goToPage3);
+  }
+  
+  const page3Fields = ['password', 'confirmPassword', 'termsCheckbox'];
+  page3Fields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.addEventListener('input', validatePage3);
+      field.addEventListener('change', validatePage3);
+    }
+  });
+});
     </script>
 <script>
 document.getElementById("signupUserBtn").addEventListener("click", function (e) {
@@ -984,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const msg = document.createElement('div');
       msg.className = `message ${sender}`;
       msg.innerHTML = sender === 'bot'
-        ? `<div class="avatar"><img src="IMAGES/customer-service-agent.png" alt="Chatbot"></div><div class="text">${text.replace(/\n/g, '<br>')}</div>`
+        ? `<div class="avatar"><img src="IMAGES/customer-support.png" alt="Chatbot"></div><div class="text">${text.replace(/\n/g, '<br>')}</div>`
         : `<div class="text">${text}</div>`;
       chat.messages.appendChild(msg);
       chat.messages.scrollTop = chat.messages.scrollHeight;
@@ -1108,8 +1134,6 @@ document.getElementById('signupUserBtn').addEventListener('click', () => {
 
     localStorage.setItem('userProfile', JSON.stringify(userData));
 
-  
-  window.location.href = 'userdashboard.html';
 });
 
 document.getElementById('signInSwitchBtn').addEventListener('click', (e) => {
@@ -1218,7 +1242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const driverLicense = document.getElementById('driverLicense').value;
     const nextButton = document.getElementById('nextButton2');
     
-    // Check if all required fields are filled
+ 
     if (govIdType && govIdNumber && contactNumber && address && driverLicense) {
       nextButton.disabled = false;
     } else {
@@ -1234,13 +1258,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   window.goToPage3 = function() {
-    
-    saveFormData();
-    
-    
-    window.location.href = 'userdashboard.html';
-  }
+  validatePage3();
+  saveFormData();
   
+}
   
   function saveFormData() {
     const userData = {
@@ -1394,16 +1415,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     validateForm();
-  }
-  
-
-  const showSignInLink = document.getElementById('showSignInLink');
-  if (showSignInLink) {
-    showSignInLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      alert('Login functionality would go here');
-    });
   }
   
 
