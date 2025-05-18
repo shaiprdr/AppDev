@@ -280,7 +280,7 @@ body {
 }
 
 .book-btn {
-  position: relative;
+  position: center;
   align-items: baseline;
   padding: 0.3rem .5rem !important;
   font-size: 0.60rem !important;
